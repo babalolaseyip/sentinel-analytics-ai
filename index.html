@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Sentinel Analytics AI — Autonomous threat detection and algorithm intelligence for regulated industries. Hamilton NJ & New York.">
+<title>Sentinel Analytics AI — Autonomous Threat Detection Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+/* ── HERO (homepage only) ── */
+#hero { position:relative; min-height:100vh; background:var(--navy); display:flex; flex-direction:column; overflow:hidden; }
+#cv { position:absolute; inset:0; z-index:0; opacity:.7; }
+.hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(6,13,30,.97) 0%,rgba(6,13,30,.82) 55%,rgba(6,13,30,.55) 100%); }
+.slides { position:absolute; inset:0; z-index:2; }
+.slide { position:absolute; inset:0; display:flex; align-items:flex-end; padding:0 48px 112px; opacity:0; pointer-events:none; transition:opacity .75s var(--ease); }
+.slide.on { opacity:1; pointer-events:all; }
+.slide-inner { max-width:760px; width:100%; }
+.s-eye { display:flex; align-items:center; gap:14px; font-size:12px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--cyan); margin-bottom:18px; opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease); }
+.slide.on .s-eye { opacity:1; transform:none; transition-delay:.1s; }
+.s-eye::before { content:''; width:28px; height:1.5px; background:var(--cyan); flex-shrink:0; }
+.s-h { font-size:clamp(36px,5.2vw,68px); font-weight:800; line-height:1.08; letter-spacing:-.025em; color:#fff; margin-bottom:20px; opacity:0; transform:translateY(22px); transition:opacity .65s var(--ease), transform .65s var(--ease); word-break:break-word; }
+.slide.on .s-h { opacity:1; transform:none; transition-delay:.18s; }
+.s-h .acc { color:#fff; display:inline; }
+.s-p { font-size:16px; font-weight:400; line-height:1.75; color:rgba(255,255,255,.7); max-width:520px; margin-bottom:36px; opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease); }
+.slide.on .s-p { opacity:1; transform:none; transition-delay:.3s; }
+.s-act { display:flex; gap:12px; flex-wrap:wrap; opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease), transform .55s var(--ease); }
+.slide.on .s-act { opacity:1; transform:none; transition-delay:.42s; }
+.hero-ctrl { position:absolute; right:52px; bottom:112px; z-index:3; display:flex; flex-direction:column; align-items:center; gap:10px; }
+.hero-counter { font-family:var(--mono); font-size:11px; color:rgba(255,255,255,.35); letter-spacing:.1em; margin-bottom:6px; }
+.h-dots { display:flex; flex-direction:column; gap:8px; }
+.hdot { width:3px; height:24px; background:rgba(255,255,255,.15); border-radius:2px; cursor:pointer; position:relative; overflow:hidden; transition:height .3s var(--ease); }
+.hdot.on { height:36px; background:rgba(14,165,233,.25); }
+.hdot-f { position:absolute; top:0; left:0; right:0; height:0; background:var(--cyan); border-radius:2px; }
+.h-arr { display:flex; gap:6px; margin-top:8px; }
+.harr { width:34px; height:34px; border-radius:var(--r8); border:1px solid rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; cursor:pointer; color:rgba(255,255,255,.45); font-size:15px; transition:all .2s; }
+.harr:hover { border-color:rgba(255,255,255,.5); color:#fff; background:rgba(255,255,255,.07); }
+.h-stats { position:absolute; bottom:0; left:0; right:0; z-index:3; background:rgba(6,13,30,.85); backdrop-filter:blur(10px); border-top:1px solid rgba(255,255,255,.08); display:grid; grid-template-columns:repeat(4,1fr); }
+.hstat { padding:20px 32px; border-right:1px solid rgba(255,255,255,.08); display:flex; align-items:center; gap:16px; }
+.hstat:last-child { border-right:none; }
+.hstat-v { font-size:36px; font-weight:800; color:var(--cyan); line-height:1; letter-spacing:-.02em; }
+.hstat-l { font-size:13px; font-weight:400; color:rgba(255,255,255,.5); line-height:1.4; }
+/* preview grid on homepage */
+.preview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.preview-card { background:var(--white); border:1px solid var(--bdr); border-radius:var(--r16); padding:36px 28px; transition:border-color .25s, box-shadow .25s, transform .25s; }
+.preview-card:hover { border-color:var(--blue-bdr); box-shadow:0 12px 40px rgba(24,71,245,.09); transform:translateY(-3px); }
+.preview-icon { width:44px; height:44px; background:var(--blue-lt); border:1.5px solid var(--blue-bdr); border-radius:var(--r12); display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:20px; }
+.preview-title { font-size:18px; font-weight:800; color:var(--ink); margin-bottom:10px; letter-spacing:-.01em; }
+.preview-desc { font-size:14px; font-weight:400; color:var(--mute); line-height:1.75; margin-bottom:20px; }
+.preview-link { font-size:13px; font-weight:600; color:var(--blue); display:flex; align-items:center; gap:6px; }
+@media(max-width:768px){
+  .slide{padding:0 24px 80px;}
+  .hero-ctrl{right:24px;bottom:80px;}
+  .h-stats{grid-template-columns:1fr 1fr;}
+  .hstat{padding:14px 18px;}
+  .preview-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div>
+      <span class="nav-wordmark">Sentinel<span>Analytics</span>.AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="platform.html">Platform</a></li>
+      <li><a href="integrations.html">Integrations</a></li>
+      <li><a href="markets.html">Markets</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-act">
+      <a href="contact.html" class="btn btn-white-sm">Book a demo</a>
+      <a href="https://threat-sentinel.streamlit.app" target="_blank" class="btn btn-blue-sm">Start free <span class="arr">→</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="cv"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="slides" id="slides">
+    <div class="slide on">
+      <div class="slide-inner">
+        <div class="s-eye">Cybersecurity &amp; Algorithm Intelligence · Hamilton NJ &amp; New York</div>
+        <h1 class="s-h">Threats Detected. Autonomously Resolved.</h1>
+        <p class="s-p">Seven research-validated security modules unified in one enterprise platform — purpose-built for healthtech, fintech, government, and Fortune 500.</p>
+        <div class="s-act">
+          <a href="https://threat-sentinel.streamlit.app" target="_blank" class="btn btn-navy-white">Start free trial <span class="arr">→</span></a>
+          <a href="contact.html" class="btn btn-navy-ghost">Book a 20-min demo</a>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-inner">
+        <div class="s-eye">Published Research · Production Validated</div>
+        <h1 class="s-h">Science Deployed. Results Proven.</h1>
+        <p class="s-p">Published in Ecological Informatics and Entropy. Validated on CICIDS-2017 and UNSW-NB15. Every module peer-reviewed before it ships to production.</p>
+        <div class="s-act">
+          <a href="research.html" class="btn btn-navy-white">View our research <span class="arr">→</span></a>
+          <a href="https://babalolaseyip.github.io/babalola-portfolio/publications.html" target="_blank" class="btn btn-navy-ghost">Read publications</a>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-inner">
+        <div class="s-eye">Healthtech · Fintech · Enterprise · Government</div>
+        <h1 class="s-h">Built for the Most Regulated Industries.</h1>
+        <p class="s-p">HIPAA, HITRUST, SOC 2, ISO 27001, and FedRAMP — mapped automatically. NJ and NY's most demanding compliance environments are where we were built to operate.</p>
+        <div class="s-act">
+          <a href="markets.html" class="btn btn-navy-white">Explore markets <span class="arr">→</span></a>
+          <a href="pricing.html" class="btn btn-navy-ghost">View pricing</a>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-inner">
+        <div class="s-eye">The Sentinel Platform · 7 Modules</div>
+        <h1 class="s-h">Seven Modules. One Platform.</h1>
+        <p class="s-p">ThreatSentinel, NetGuard, VisionSentinel, SignalSentinel, LocateSentinel, OptimaSentinel, PAMSentinel — start with one, expand across the full platform as your needs grow.</p>
+        <div class="s-act">
+          <a href="platform.html" class="btn btn-navy-white">Explore platform <span class="arr">→</span></a>
+          <a href="integrations.html" class="btn btn-navy-ghost">See integrations</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-ctrl">
+    <div class="hero-counter" id="hcount">01 / 04</div>
+    <div class="h-dots" id="hdots">
+      <div class="hdot on" onclick="goSlide(0)"><div class="hdot-f" id="hf0"></div></div>
+      <div class="hdot" onclick="goSlide(1)"><div class="hdot-f" id="hf1"></div></div>
+      <div class="hdot" onclick="goSlide(2)"><div class="hdot-f" id="hf2"></div></div>
+      <div class="hdot" onclick="goSlide(3)"><div class="hdot-f" id="hf3"></div></div>
+    </div>
+    <div class="h-arr">
+      <div class="harr" onclick="prevSlide()">&#8592;</div>
+      <div class="harr" onclick="nextSlide()">&#8594;</div>
+    </div>
+  </div>
+  <div class="h-stats">
+    <div class="hstat"><div><div class="hstat-v" data-count="95" data-suffix="%">—</div><div class="hstat-l">Detection accuracy</div></div></div>
+    <div class="hstat"><div><div class="hstat-v" data-count="7">—</div><div class="hstat-l">Research-grade modules</div></div></div>
+    <div class="hstat"><div><div class="hstat-v" data-prefix="&lt;" data-count="9" data-suffix="d">—</div><div class="hstat-l">Audit timeline reduction</div></div></div>
+    <div class="hstat"><div><div class="hstat-v">4</div><div class="hstat-l">Regulated sectors served</div></div></div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust"><div class="trust-in"><div class="trust-lbl">Validated by</div><div class="trust-scroll"><div class="trust-track"><div class="trust-item">Ecological Informatics</div><div class="trust-item">Entropy · MDPI</div><div class="trust-item">CICIDS-2017 Benchmark</div><div class="trust-item">UNSW-NB15 Benchmark</div><div class="trust-item">HIPAA · HITECH · HITRUST</div><div class="trust-item">SOC 2 Type II</div><div class="trust-item">FedRAMP Moderate</div><div class="trust-item">ISO 27001</div><div class="trust-item">Dr. O. Babalola · PhD</div><div class="trust-item">Hamilton, NJ &amp; New York, NY</div><div class="trust-item">Ecological Informatics</div><div class="trust-item">Entropy · MDPI</div><div class="trust-item">CICIDS-2017 Benchmark</div><div class="trust-item">UNSW-NB15 Benchmark</div><div class="trust-item">HIPAA · HITECH · HITRUST</div><div class="trust-item">SOC 2 Type II</div><div class="trust-item">FedRAMP Moderate</div><div class="trust-item">ISO 27001</div><div class="trust-item">Dr. O. Babalola · PhD</div><div class="trust-item">Hamilton, NJ &amp; New York, NY</div></div></div></div></div>
+
+<!-- PROBLEM -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sh rv">
+      <div class="sh-tag">The Problem</div>
+      <h2 class="sh-title">The enterprise security gap is<br>costing regulated industries millions.</h2>
+      <p class="sh-sub">Static scanners flood SOC teams with false positives. Manual triage delays launch timelines. Autonomous intelligence closes that gap.</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card rv d1"><div class="prob-num">6<sub>mo</sub></div><div class="prob-lbl">Avg. contract-to-activation delay</div><div class="prob-desc">Healthcare and fintech enterprises wait up to six months to clear security review — stalling pilots, pushing ARR targets, and exposing infrastructure in the interim.</div></div>
+      <div class="prob-card rv d2"><div class="prob-num">312<sub>×</sub></div><div class="prob-lbl">False positives per reachable threat</div><div class="prob-desc">Traditional SAST tools flag hundreds of theoretical vulnerabilities that are completely unreachable in production, forcing engineering teams into months of unnecessary manual triage.</div></div>
+      <div class="prob-card rv d3"><div class="prob-num">$4.9<sub>M</sub></div><div class="prob-lbl">Avg. healthcare breach cost</div><div class="prob-desc">Healthcare records the highest average breach cost of any industry — driven by fragmented, reactive tooling that lacks the compliance intelligence to close gaps before auditors arrive.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM PREVIEW -->
+<section class="sec sec-gray">
+  <div class="wrap">
+    <div class="sh rv">
+      <div class="sh-tag">Platform Overview</div>
+      <h2 class="sh-title">Seven modules. <span class="blue">One unified platform.</span></h2>
+      <p class="sh-sub">Each module is independently deployable, peer-reviewed, and production-ready. Start with one and expand as your needs grow.</p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-card rv d1">
+        <div class="preview-icon">🛡️</div>
+        <div class="preview-title">Cybersecurity Detection</div>
+        <div class="preview-desc">ThreatSentinel and NetGuard deliver autonomous network threat and intrusion detection — validated on CICIDS-2017 and UNSW-NB15 benchmarks. ThreatSentinel is live today.</div>
+        <a href="platform.html" class="preview-link">Explore modules →</a>
+      </div>
+      <div class="preview-card rv d2">
+        <div class="preview-icon">📡</div>
+        <div class="preview-title">Signal &amp; Vision Intelligence</div>
+        <div class="preview-desc">VisionSentinel and SignalSentinel bring AI-powered anomaly detection to video streams and time-series data — securing physical facilities and financial signal pipelines.</div>
+        <a href="platform.html" class="preview-link">Explore modules →</a>
+      </div>
+      <div class="preview-card rv d3">
+        <div class="preview-icon">⚙️</div>
+        <div class="preview-title">Optimization &amp; Acoustics</div>
+        <div class="preview-desc">LocateSentinel, OptimaSentinel, and PAMSentinel handle asset localization, resource scheduling, and published-research acoustic monitoring for government and enterprise.</div>
+        <a href="platform.html" class="preview-link">Explore modules →</a>
+      </div>
+    </div>
+    <div style="margin-top:40px;text-align:center">
+      <a href="platform.html" class="btn btn-blue">View all 7 modules <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sh rv">
+      <div class="sh-tag">Who we serve</div>
+      <h2 class="sh-title">Built for the teams carrying<br>the heaviest security burden.</h2>
+      <p class="sh-sub">Three buyer roles. One platform that gives each of them exactly what they need to stay ahead of the threat landscape.</p>
+    </div>
+    <div class="pers-grid">
+      <div class="pers-card rv d1">
+        <div class="pers-badge">CISO · Security Leadership</div>
+        <h3 class="pers-title">Chief Information Security Officers</h3>
+        <p class="pers-desc">Stop drowning in false positives. Get reachability-filtered findings and autonomous remediation that reduces your team's manual triage from months to hours.</p>
+        <ul class="pers-list"><li>Reachable vs. theoretical threat separation</li><li>Autonomous PR generation for all critical fixes</li><li>HIPAA / SOC 2 / FedRAMP evidence bundles on demand</li><li>One-click audit-ready compliance reports</li></ul>
+      </div>
+      <div class="pers-card rv d2">
+        <div class="pers-badge">CTO · Engineering</div>
+        <h3 class="pers-title">Technology &amp; Engineering Leaders</h3>
+        <p class="pers-desc">Keep your engineers building product — not doing manual security triage. Native CI/CD integration means fixes go straight into the workflow your team already uses.</p>
+        <ul class="pers-list"><li>GitHub / GitLab native PR workflow</li><li>CI/CD pipeline integration in under 60 minutes</li><li>Real-time threat telemetry dashboard</li><li>No dedicated security expertise needed day one</li></ul>
+      </div>
+      <div class="pers-card rv d3">
+        <div class="pers-badge">CCO · Risk &amp; Compliance</div>
+        <h3 class="pers-title">Risk &amp; Compliance Officers</h3>
+        <p class="pers-desc">Walk into any audit with a pre-assembled evidence pack. Every finding is automatically mapped to HIPAA, HITRUST, SOC 2, ISO 27001, and FedRAMP Moderate controls.</p>
+        <ul class="pers-list"><li>Continuous multi-framework compliance monitoring</li><li>Automated control mapping across 5+ frameworks</li><li>Converts 6-month security reviews to &lt;9 days</li><li>Regulatory change alerts and gap analysis</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta" id="contact">
+  <div class="cta-in">
+    <h2 class="cta-h">Ready to collapse your<br><span>threat detection</span> timeline?</h2>
+    <div class="cta-act">
+      <a href="https://threat-sentinel.streamlit.app" target="_blank" class="btn btn-navy-white">Start free — no credit card <span class="arr">→</span></a>
+      <a href="contact.html" class="btn btn-navy-ghost">Book a 20-min demo</a>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="nl"><div class="nl-in"><div><div class="nl-h">Stay ahead of the threat.</div><p class="nl-sub">Monthly briefings on cybersecurity research, platform updates, and NJ/NY regulatory changes.</p></div><form class="nl-form" onsubmit="subFrm(event)"><input type="email" placeholder="Your work email address" required><button type="submit">Subscribe →</button></form></div></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-main">
+    <div><div class="foot-logo"><div class="foot-badge"><svg viewBox="0 0 18 18" width="16" height="16" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div><div class="foot-wm">Sentinel<span>Analytics</span>.AI</div></div><p class="foot-tag">Autonomous detection, prediction, and optimization systems for regulated industries — built on peer-reviewed science.</p><div class="foot-hq">Hamilton, NJ &amp; New York, NY<br><span>Dr. Oluwaseyi Babalola</span> · Founder &amp; CEO<br>contact@sentinelanalyticsai.com</div></div>
+    <div><div class="foot-col-t">Platform</div><ul class="foot-links"><li><a href="platform.html" class="live">ThreatSentinel ● Live</a></li><li><a href="platform.html">NetGuard</a></li><li><a href="platform.html">VisionSentinel</a></li><li><a href="platform.html">SignalSentinel</a></li><li><a href="platform.html">LocateSentinel</a></li><li><a href="platform.html">OptimaSentinel</a></li><li><a href="platform.html">PAMSentinel</a></li></ul></div>
+    <div><div class="foot-col-t">Solutions</div><ul class="foot-links"><li><a href="markets.html">Healthcare &amp; Hospitals</a></li><li><a href="markets.html">Financial Services</a></li><li><a href="markets.html">Government &amp; Defense</a></li><li><a href="markets.html">Fortune 500 Enterprise</a></li><li><a href="integrations.html">Integrations</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+    <div><div class="foot-col-t">Research</div><ul class="foot-links"><li><a href="research.html">Research Overview</a></li><li><a href="https://babalolaseyip.github.io/babalola-portfolio/publications.html" target="_blank">Publications</a></li><li><a href="https://github.com/babalolaseyip/threat-sentinel" target="_blank">GitHub — ThreatSentinel</a></li><li><a href="https://pam-sentinel.streamlit.app" target="_blank">PAM Live Demo</a></li></ul></div>
+    <div><div class="foot-col-t">Company</div><ul class="foot-links"><li><a href="https://babalolaseyip.github.io/babalola-portfolio/" target="_blank">About Dr. Babalola</a></li><li><a href="contact.html">Book a Demo</a></li><li><a href="contact.html">Contact Us</a></li><li><a href="contact.html">SBIR / Gov Contracts</a></li></ul></div>
+  </div>
+  <div class="foot-bot"><div class="foot-copy">© 2025 Sentinel Analytics AI LLC. All rights reserved. Hamilton, New Jersey.</div><div class="foot-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Security</a><a href="#">Compliance</a></div><div class="foot-status"><span class="sdot"></span>All systems operational</div></div>
+</footer>
+
+<script>
+(function(){
+  const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+  let W,H,nodes=[];
+  const mx={x:-999,y:-999},N=68,DIST=148;
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight}
+  resize();window.addEventListener('resize',resize);
+  const hero=document.getElementById('hero');
+  hero.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mx.x=e.clientX-r.left;mx.y=e.clientY-r.top});
+  hero.addEventListener('mouseleave',()=>{mx.x=-999;mx.y=-999});
+  for(let i=0;i<N;i++)nodes.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.8+.8,a:Math.random()*.55+.2,pulse:Math.random()*Math.PI*2,ps:Math.random()*.012+.004});
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;const dx=n.x-mx.x,dy=n.y-mx.y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){const f=(110-d)/110*.5;n.x+=dx/d*f;n.y+=dy/d*f}n.pulse+=n.ps;const a=n.a+Math.sin(n.pulse)*.12;cx.beginPath();cx.arc(n.x,n.y,n.r,0,Math.PI*2);cx.fillStyle=`rgba(14,165,233,${a})`;cx.fill();});
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);if(d<DIST){cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.strokeStyle=`rgba(24,71,245,${(1-d/DIST)*.16})`;cx.lineWidth=.8;cx.stroke();}}
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+const SL=document.querySelectorAll('.slide'),DTS=document.querySelectorAll('.hdot'),FLS=document.querySelectorAll('.hdot-f'),HC=document.getElementById('hcount'),DUR=5800;
+let cur=0,tmr=null;
+function goSlide(i){SL[cur].classList.remove('on');DTS[cur].classList.remove('on');if(FLS[cur]){FLS[cur].style.transition='none';FLS[cur].style.height='0';}cur=i;SL[cur].classList.add('on');DTS[cur].classList.add('on');HC.textContent='0'+(cur+1)+' / 0'+SL.length;if(FLS[cur]){setTimeout(()=>{FLS[cur].style.transition='height '+DUR+'ms linear';FLS[cur].style.height='100%';},60);}clearInterval(tmr);tmr=setInterval(()=>goSlide((cur+1)%SL.length),DUR);}
+function nextSlide(){goSlide((cur+1)%SL.length)}
+function prevSlide(){goSlide((cur-1+SL.length)%SL.length)}
+goSlide(0);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')nextSlide();if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevSlide();});
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>30);},{passive:true});
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');ro.unobserve(x.target);}});},{threshold:.1});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>ro.observe(el));
+function animCount(el){if(el.dataset.done)return;el.dataset.done='1';const t=parseInt(el.dataset.count)||0,sfx=el.dataset.suffix||'',pfx=el.dataset.prefix||'',dur=1500,st=performance.now();(function step(now){const p=Math.min((now-st)/dur,1),e=1-Math.pow(1-p,4);el.textContent=pfx+Math.round(e*t)+sfx;if(p<1)requestAnimationFrame(step);})(st);}
+const co=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.querySelectorAll('[data-count]').forEach(animCount)});},{threshold:.2});
+document.querySelectorAll('.h-stats').forEach(el=>co.observe(el));
+function subFrm(e){e.preventDefault();const b=e.target.querySelector('button');b.textContent='Subscribed ✓';b.style.background='#10B981';setTimeout(()=>{b.textContent='Subscribe →';b.style.background='';e.target.reset()},3000);}
+</script>
+</body>
+</html>
