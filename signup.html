@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start your free trial — Sentinel Analytics AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1847F5;--blue-h:#0F38D9;--blue-lt:#EEF2FF;--blue-bdr:rgba(24,71,245,.18);
+  --navy:#060D1E;--ink:#0A0F1E;--ink2:#1E293B;--ink3:#334155;
+  --mute:#64748B;--mute2:#94A3B8;--surf:#F8FAFC;--surf2:#F1F5F9;
+  --bdr:#E2E8F0;--bdr2:#CBD5E1;--green:#10B981;--red:#EF4444;
+  --sans:'Plus Jakarta Sans',sans-serif;--mono:'DM Mono',monospace;
+  --r8:8px;--r12:12px;--r16:16px;--ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--sans);background:var(--surf);color:var(--ink);display:flex;flex-direction:column;min-height:100vh}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{background:#fff;border-bottom:1px solid var(--bdr);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:18px;height:18px}
+.logo-text{font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.logo-text span{color:var(--blue)}
+.topbar-right{font-size:14px;color:var(--mute)}
+.topbar-right a{color:var(--blue);font-weight:500}
+.main{flex:1;display:flex;gap:0;min-height:0}
+
+/* ── LEFT PANEL ── */
+.left-panel{background:var(--navy);padding:64px 48px;width:420px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
+.lp-tag{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#0EA5E9;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.lp-tag::before{content:'';width:20px;height:1px;background:#0EA5E9}
+.lp-title{font-size:30px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px}
+.lp-sub{font-size:15px;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:40px}
+.lp-items{list-style:none;display:flex;flex-direction:column;gap:14px}
+.lp-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,.75);line-height:1.5}
+.lp-check{width:20px;height:20px;border-radius:50%;background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#10B981;font-size:11px;margin-top:1px}
+.lp-trial{margin-top:40px;padding:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r12)}
+.lp-trial-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.lp-trial-sub{font-size:13px;color:rgba(255,255,255,.5)}
+
+/* ── RIGHT PANEL ── */
+.right-panel{flex:1;display:flex;align-items:center;justify-content:center;padding:48px}
+.auth-card{background:#fff;border:1px solid var(--bdr);border-radius:var(--r16);padding:44px 40px;width:100%;max-width:480px;box-shadow:0 4px 32px rgba(10,15,30,.08)}
+.auth-title{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:6px}
+.auth-sub{font-size:14px;color:var(--mute);margin-bottom:32px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:14px;font-weight:600;color:var(--ink2);margin-bottom:8px}
+.form-input{width:100%;background:var(--surf);border:1px solid var(--bdr);color:var(--ink);font-family:var(--sans);font-size:14px;padding:12px 16px;border-radius:var(--r8);outline:none;transition:border-color .2s,box-shadow .2s}
+.form-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,71,245,.1);background:#fff}
+.form-input::placeholder{color:var(--mute2)}
+.form-input.error{border-color:var(--red)}
+.form-select{width:100%;background:var(--surf);border:1px solid var(--bdr);color:var(--ink);font-family:var(--sans);font-size:14px;padding:12px 16px;border-radius:var(--r8);outline:none;cursor:pointer;transition:border-color .2s}
+.form-select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,71,245,.1)}
+.pw-hint{font-size:12px;color:var(--mute2);margin-top:6px}
+.tos-wrap{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px}
+.tos-wrap input[type="checkbox"]{width:16px;height:16px;accent-color:var(--blue);margin-top:2px;flex-shrink:0;cursor:pointer}
+.tos-wrap label{font-size:13px;color:var(--mute);line-height:1.5;cursor:pointer}
+.btn-submit{width:100%;background:var(--blue);color:#fff;border:none;font-family:var(--sans);font-size:15px;font-weight:700;padding:14px 28px;border-radius:var(--r8);cursor:pointer;transition:all .18s var(--ease);display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{background:var(--blue-h);transform:translateY(-1px);box-shadow:0 8px 24px rgba(24,71,245,.28)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.divider{display:flex;align-items:center;gap:16px;margin:24px 0;color:var(--mute2);font-size:13px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.btn-google{width:100%;background:#fff;color:var(--ink2);border:1px solid var(--bdr);font-family:var(--sans);font-size:14px;font-weight:600;padding:12px 28px;border-radius:var(--r8);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-google:hover{border-color:var(--bdr2);background:var(--surf)}
+.auth-footer{text-align:center;margin-top:24px;font-size:14px;color:var(--mute)}
+.auth-footer a{color:var(--blue);font-weight:600}
+.alert{padding:12px 16px;border-radius:var(--r8);font-size:14px;margin-bottom:18px;display:none}
+.alert.error{background:#FEF2F2;border:1px solid #FCA5A5;color:#991B1B}
+.alert.show{display:block}
+.spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.page-footer{text-align:center;padding:20px;font-size:13px;color:var(--mute2);flex-shrink:0}
+.page-footer a{color:var(--mute);transition:color .18s}
+.page-footer a:hover{color:var(--blue);text-decoration:none}
+@media(max-width:900px){
+  .main{flex-direction:column}
+  .left-panel{width:100%;padding:40px 24px}
+  .right-panel{padding:32px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">
+    <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div>
+    <span class="logo-text">Sentinel<span>Analytics</span>.AI</span>
+  </a>
+  <div class="topbar-right">Already have an account? <a href="login.html">Sign in</a></div>
+</div>
+
+<div class="main">
+  <div class="left-panel">
+    <div class="lp-tag">Free 14-day trial</div>
+    <h2 class="lp-title">Start detecting threats today.</h2>
+    <p class="lp-sub">No credit card required. Cancel anytime. Get the full platform for 14 days.</p>
+    <ul class="lp-items">
+      <li class="lp-item"><div class="lp-check">✓</div>ThreatSentinel live dashboard — active immediately</li>
+      <li class="lp-item"><div class="lp-check">✓</div>ML ensemble threat detection on your network telemetry</li>
+      <li class="lp-item"><div class="lp-check">✓</div>Up to 5,000 events per day, 5 user seats</li>
+      <li class="lp-item"><div class="lp-check">✓</div>HIPAA compliance mapping (Professional trial)</li>
+      <li class="lp-item"><div class="lp-check">✓</div>Full platform docs and onboarding support</li>
+    </ul>
+    <div class="lp-trial">
+      <div class="lp-trial-title">After your trial</div>
+      <div class="lp-trial-sub">Continue with Starter at $299/mo or upgrade to Professional at $799/mo. No automatic charge — you choose.</div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="auth-card">
+      <h1 class="auth-title">Create your account.</h1>
+      <p class="auth-sub">14-day free trial · No credit card required</p>
+
+      <div class="alert error" id="alert-box"></div>
+
+      <form id="signup-form" onsubmit="handleSignup(event)" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">First name</label>
+            <input id="fname" type="text" class="form-input" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lname">Last name</label>
+            <input id="lname" type="text" class="form-input" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Work email</label>
+          <input id="email" type="email" class="form-input" placeholder="jane@hospital.com" autocomplete="email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="company">Company / Organization</label>
+          <input id="company" type="text" class="form-input" placeholder="Hackensack Meridian Health" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="role">Your role</label>
+          <select id="role" class="form-select">
+            <option value="">Select your role…</option>
+            <option value="ciso">CISO / VP Security</option>
+            <option value="cto">CTO / VP Engineering</option>
+            <option value="compliance">Compliance / Risk Officer</option>
+            <option value="engineer">Security Engineer</option>
+            <option value="devops">DevSecOps / DevOps</option>
+            <option value="analyst">Security Analyst</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input id="password" type="password" class="form-input" placeholder="Min 10 characters" autocomplete="new-password" required>
+          <div class="pw-hint">Use at least 10 characters with numbers and symbols.</div>
+        </div>
+        <div class="tos-wrap">
+          <input type="checkbox" id="tos" required>
+          <label for="tos">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand this platform handles sensitive security data in compliance with applicable regulations.</label>
+        </div>
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span id="btn-text">Start free trial</span>
+          <div class="spinner" id="spinner"></div>
+        </button>
+      </form>
+
+      <div class="divider">or</div>
+
+      <button class="btn-google" onclick="handleGoogleSignup()">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2a10.34 10.34 0 00-.16-1.83H9v3.46h4.84a4.14 4.14 0 01-1.8 2.71v2.26h2.92a8.78 8.78 0 002.68-6.6z" fill="#4285F4"/><path d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26a5.41 5.41 0 01-3.04.86 5.38 5.38 0 01-5.06-3.71H.96v2.34A9 9 0 009 18z" fill="#34A853"/><path d="M3.94 10.71A5.41 5.41 0 013.65 9c0-.59.1-1.17.29-1.71V4.95H.96A9 9 0 000 9c0 1.45.35 2.82.96 4.05l2.98-2.34z" fill="#FBBC05"/><path d="M9 3.58a4.86 4.86 0 013.44 1.35l2.58-2.58A8.64 8.64 0 009 0 9 9 0 00.96 4.95l2.98 2.34A5.38 5.38 0 019 3.58z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-footer">
+  <a href="index.html">Back to site</a> &nbsp;·&nbsp;
+  <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+  <a href="#">Terms of Service</a> &nbsp;·&nbsp;
+  <a href="#">Security</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+(async()=>{
+  const {data:{session}}=await supabase.auth.getSession();
+  if(session) window.location.href='dashboard.html';
+})();
+
+async function handleSignup(e){
+  e.preventDefault();
+  const fname=document.getElementById('fname').value.trim();
+  const lname=document.getElementById('lname').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const company=document.getElementById('company').value.trim();
+  const role=document.getElementById('role').value;
+  const password=document.getElementById('password').value;
+  const tos=document.getElementById('tos').checked;
+
+  document.getElementById('alert-box').classList.remove('show');
+
+  if(!fname||!lname||!email||!company||!password){
+    showAlert('Please fill in all required fields.');return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    showAlert('Please enter a valid work email address.');return;
+  }
+  if(password.length<10){
+    showAlert('Password must be at least 10 characters.');return;
+  }
+  if(!tos){
+    showAlert('Please agree to the Terms of Service to continue.');return;
+  }
+
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  document.getElementById('btn-text').textContent='Creating account…';
+  document.getElementById('spinner').style.display='block';
+
+  const {data,error}=await supabase.auth.signUp({
+    email,password,
+    options:{
+      data:{full_name:`${fname} ${lname}`,company,role,plan:'trial'},
+      emailRedirectTo:window.location.origin+'/dashboard.html'
+    }
+  });
+
+  if(error){
+    btn.disabled=false;
+    document.getElementById('btn-text').textContent='Start free trial';
+    document.getElementById('spinner').style.display='none';
+    showAlert(error.message);return;
+  }
+
+  // Redirect to dashboard (email confirmation optional in Supabase settings)
+  window.location.href='dashboard.html?welcome=1';
+}
+
+async function handleGoogleSignup(){
+  await supabase.auth.signInWithOAuth({
+    provider:'google',
+    options:{redirectTo:window.location.origin+'/dashboard.html'}
+  });
+}
+
+function showAlert(msg){
+  const box=document.getElementById('alert-box');
+  box.textContent=msg;box.classList.add('show');
+}
+</script>
+</body>
+</html>

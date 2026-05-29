@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — ThreatSentinel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1847F5;--blue-h:#0F38D9;--blue-lt:#EEF2FF;--blue-bdr:rgba(24,71,245,.18);
+  --cyan:#0EA5E9;--navy:#060D1E;--navy2:#0C1828;
+  --ink:#0A0F1E;--ink2:#1E293B;--ink3:#334155;
+  --mute:#64748B;--mute2:#94A3B8;--mute3:#CBD5E1;
+  --surf:#F8FAFC;--surf2:#F1F5F9;
+  --bdr:#E2E8F0;--bdr2:#CBD5E1;
+  --green:#10B981;--red:#EF4444;--amber:#F59E0B;
+  --sans:'Plus Jakarta Sans',sans-serif;--mono:'DM Mono',monospace;
+  --r8:8px;--r12:12px;--r16:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--sans);background:var(--surf);color:var(--ink);display:flex}
+
+/* ── SIDEBAR ── */
+.sidebar{width:240px;background:#fff;border-right:1px solid var(--bdr);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto}
+.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px}
+.logo-mark{width:30px;height:30px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:16px;height:16px}
+.logo-text{font-size:13px;font-weight:800;color:var(--ink);letter-spacing:-.01em;line-height:1.2}
+.logo-text span{color:var(--blue)}
+.logo-text small{display:block;font-size:10px;font-weight:500;color:var(--mute2);letter-spacing:.06em;text-transform:uppercase}
+.sidebar-section{padding:16px 12px 8px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mute2)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r8);cursor:pointer;font-size:14px;font-weight:500;color:var(--mute);transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--surf);color:var(--ink)}
+.nav-item.active{background:var(--blue-lt);color:var(--blue);font-weight:600}
+.nav-item svg{width:16px;height:16px;flex-shrink:0}
+.nav-badge{margin-left:auto;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;background:var(--red);color:#fff}
+.nav-badge.green{background:var(--green)}
+.nav-badge.amber{background:var(--amber)}
+.sidebar-modules{padding:8px 12px;border-top:1px solid var(--bdr);margin-top:auto}
+.sidebar-modules-title{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mute2);margin-bottom:10px}
+.module-pill{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:var(--r8);margin-bottom:4px;font-size:12px;font-weight:500}
+.module-pill.active-m{background:var(--blue-lt);color:var(--ink2)}
+.module-pill.inactive-m{background:var(--surf2);color:var(--mute2)}
+.mpill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mpill-dot.on{background:var(--green)}
+.mpill-dot.off{background:var(--mute3)}
+.sidebar-user{padding:14px 16px;border-top:1px solid var(--bdr);display:flex;align-items:center;gap:10px}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:var(--blue-lt);border:1.5px solid var(--blue-bdr);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue);flex-shrink:0}
+.user-name{font-size:13px;font-weight:600;color:var(--ink2)}
+.user-plan{font-family:var(--mono);font-size:10px;color:var(--mute2);letter-spacing:.06em}
+.logout-btn{margin-left:auto;font-size:12px;color:var(--mute2);cursor:pointer;border:none;background:none;transition:color .15s}
+.logout-btn:hover{color:var(--red)}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.topbar{height:60px;border-bottom:1px solid var(--bdr);background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex-shrink:0}
+.tb-left{display:flex;align-items:center;gap:12px}
+.tb-title{font-size:16px;font-weight:700;color:var(--ink)}
+.tb-tag{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:4px;background:var(--blue-lt);color:var(--blue);border:1px solid var(--blue-bdr)}
+.tb-right{display:flex;align-items:center;gap:12px}
+.scan-btn{background:var(--blue);color:#fff;border:none;font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 18px;border-radius:var(--r8);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .18s}
+.scan-btn:hover{background:var(--blue-h)}
+.scan-btn.scanning{background:var(--navy2)}
+.tb-divider{height:20px;width:1px;background:var(--bdr)}
+.tb-time{font-family:var(--mono);font-size:12px;color:var(--mute2)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.4)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(16,185,129,0)}}
+
+/* ── DASHBOARD CONTENT ── */
+.content{flex:1;overflow-y:auto;padding:24px 28px}
+
+/* Metrics row */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.metric-card{background:#fff;border:1px solid var(--bdr);border-radius:var(--r12);padding:20px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.metric-card:hover{border-color:var(--blue-bdr);box-shadow:0 4px 16px rgba(24,71,245,.08)}
+.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue)}
+.metric-card.green::before{background:var(--green)}
+.metric-card.amber::before{background:var(--amber)}
+.metric-card.red::before{background:var(--red)}
+.metric-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--mute2);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.metric-val{font-size:32px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.02em;margin-bottom:6px}
+.metric-val.blue{color:var(--blue)}
+.metric-val.green{color:var(--green)}
+.metric-val.amber{color:var(--amber)}
+.metric-val.red{color:var(--red)}
+.metric-delta{font-size:12px;font-weight:500;display:flex;align-items:center;gap:4px}
+.metric-delta.up{color:var(--green)}
+.metric-delta.down{color:var(--red)}
+
+/* Grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.grid3{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px}
+.panel{background:#fff;border:1px solid var(--bdr);border-radius:var(--r12);overflow:hidden}
+.panel-head{padding:16px 20px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:14px;font-weight:700;color:var(--ink)}
+.panel-action{font-size:13px;font-weight:500;color:var(--blue);cursor:pointer;border:none;background:none;transition:opacity .15s}
+.panel-action:hover{opacity:.7}
+.panel-body{padding:0}
+
+/* Threat feed */
+.threat-row{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--bdr);font-size:13px;transition:background .15s;cursor:pointer}
+.threat-row:last-child{border-bottom:none}
+.threat-row:hover{background:var(--surf)}
+.threat-sev{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sev-crit{background:var(--red)}
+.sev-high{background:var(--amber)}
+.sev-med{background:#3B82F6}
+.sev-low{background:var(--green)}
+.threat-name{flex:1;font-weight:500;color:var(--ink2)}
+.threat-src{font-family:var(--mono);font-size:11px;color:var(--mute2)}
+.threat-badge{font-family:var(--mono);font-size:10px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:.06em}
+.badge-crit{background:#FEF2F2;color:#991B1B;border:1px solid #FCA5A5}
+.badge-high{background:#FFFBEB;color:#92400E;border:1px solid #FCD34D}
+.badge-med{background:#EFF6FF;color:#1E40AF;border:1px solid #BFDBFE}
+.badge-low{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0}
+.badge-resolved{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0}
+.threat-time{font-family:var(--mono);font-size:11px;color:var(--mute2);white-space:nowrap}
+
+/* Compliance chart */
+.compliance-list{padding:16px 20px}
+.comp-item{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.comp-item:last-child{margin-bottom:0}
+.comp-name{font-size:13px;font-weight:600;color:var(--ink2);width:80px;flex-shrink:0}
+.comp-bar-wrap{flex:1;height:6px;background:var(--surf2);border-radius:3px;overflow:hidden}
+.comp-bar{height:100%;border-radius:3px;background:var(--blue);transition:width 1.2s ease}
+.comp-bar.green-bar{background:var(--green)}
+.comp-bar.amber-bar{background:var(--amber)}
+.comp-pct{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--mute);width:38px;text-align:right;flex-shrink:0}
+
+/* Risk score gauge */
+.risk-gauge{padding:24px 20px;text-align:center}
+.risk-score{font-size:64px;font-weight:800;color:var(--green);line-height:1;letter-spacing:-.03em}
+.risk-label{font-size:13px;color:var(--mute);margin-top:4px}
+.risk-desc{font-size:12px;color:var(--mute2);margin-top:12px;line-height:1.6;padding:0 16px}
+.risk-tier{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green);background:#F0FDF4;border:1px solid #BBF7D0;padding:4px 12px;border-radius:12px;margin-top:12px}
+.risk-tier-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* Agent log */
+.agent-row{display:flex;align-items:flex-start;gap:10px;padding:10px 20px;border-bottom:1px solid var(--bdr);font-size:12px}
+.agent-row:last-child{border-bottom:none}
+.agent-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.agent-msg{flex:1;color:var(--ink3);line-height:1.5}
+.agent-msg strong{color:var(--ink);font-weight:600}
+.agent-time{font-family:var(--mono);font-size:11px;color:var(--mute2);white-space:nowrap}
+
+/* PR list */
+.pr-row{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--bdr);font-size:13px}
+.pr-row:last-child{border-bottom:none}
+.pr-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.pr-icon.ready{background:#F0FDF4;color:var(--green)}
+.pr-icon.review{background:#FFFBEB;color:var(--amber)}
+.pr-name{flex:1;color:var(--ink2);font-weight:500}
+.pr-status{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;font-family:var(--mono)}
+.pr-ready{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0}
+.pr-review{background:#FFFBEB;color:#92400E;border:1px solid #FCD34D}
+.pr-merge-btn{font-size:12px;font-weight:600;color:#fff;background:var(--green);border:none;padding:4px 12px;border-radius:6px;cursor:pointer;transition:opacity .15s}
+.pr-merge-btn:hover{opacity:.85}
+
+/* Welcome banner */
+.welcome-banner{background:var(--navy);border-radius:var(--r12);padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;display:none}
+.welcome-banner.show{display:flex}
+.wb-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+.wb-sub{font-size:13px;color:rgba(255,255,255,.6)}
+.wb-close{color:rgba(255,255,255,.4);cursor:pointer;font-size:20px;line-height:1;border:none;background:none;transition:color .15s}
+.wb-close:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div>
+    <div class="logo-text">ThreatSentinel<span>Analytics</span>.AI<small>Dashboard</small></div>
+  </div>
+
+  <div class="sidebar-section">Detection</div>
+  <button class="nav-item active" onclick="setTab('overview')">
+    <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.3"/></svg>
+    Overview
+    <span class="nav-badge">3</span>
+  </button>
+  <button class="nav-item" onclick="setTab('threats')">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5L13.5 4.5V11.5L8 14.5L2.5 11.5V4.5L8 1.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/></svg>
+    Threat Feed
+    <span class="nav-badge">14</span>
+  </button>
+  <button class="nav-item" onclick="setTab('prs')">
+    <svg viewBox="0 0 16 16" fill="none"><circle cx="4" cy="4" r="1.5" stroke="currentColor" stroke-width="1.3"/><circle cx="4" cy="12" r="1.5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="4" r="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 5.5v5M12 5.5L8 9H5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    Remediation PRs
+    <span class="nav-badge green">11</span>
+  </button>
+  <button class="nav-item" onclick="setTab('compliance')">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Compliance
+  </button>
+
+  <div class="sidebar-section">Platform</div>
+  <button class="nav-item" onclick="setTab('agents')">
+    <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v3l2 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    Agent Activity
+  </button>
+  <button class="nav-item">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v4M8 11v4M1 8h4M11 8h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    Integrations
+  </button>
+  <button class="nav-item">
+    <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-3 2.5-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    Team
+  </button>
+  <button class="nav-item" onclick="window.location.href='pricing.html'">
+    <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 7h12" stroke="currentColor" stroke-width="1.3"/></svg>
+    Billing &amp; Plan
+    <span class="nav-badge amber">Trial</span>
+  </button>
+
+  <div class="sidebar-modules">
+    <div class="sidebar-modules-title">Modules</div>
+    <div class="module-pill active-m"><span>ThreatSentinel</span><span class="mpill-dot on"></span></div>
+    <div class="module-pill inactive-m"><span>NetGuard</span><span class="mpill-dot off"></span></div>
+    <div class="module-pill inactive-m"><span>VisionSentinel</span><span class="mpill-dot off"></span></div>
+    <div class="module-pill inactive-m"><span>SignalSentinel</span><span class="mpill-dot off"></span></div>
+    <div class="module-pill inactive-m"><span>LocateSentinel</span><span class="mpill-dot off"></span></div>
+    <div class="module-pill inactive-m"><span>OptimaSentinel</span><span class="mpill-dot off"></span></div>
+    <div class="module-pill inactive-m"><span>PAMSentinel</span><span class="mpill-dot off"></span></div>
+  </div>
+
+  <div class="sidebar-user">
+    <div class="user-avatar" id="user-avatar">OB</div>
+    <div>
+      <div class="user-name" id="user-name">Dr. Babalola</div>
+      <div class="user-plan">Free Trial · 12 days left</div>
+    </div>
+    <button class="logout-btn" onclick="handleLogout()" title="Sign out">↩</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <span class="tb-title" id="tab-title">Overview</span>
+      <span class="tb-tag">ThreatSentinel · Live</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mute2)"><span class="status-dot"></span>Scanning</span>
+    </div>
+    <div class="tb-right">
+      <span class="tb-time" id="clock">—</span>
+      <div class="tb-divider"></div>
+      <button class="scan-btn" id="scan-btn" onclick="triggerScan()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v3M7 10v3M1 7h3M10 7h3M3.2 3.2l2.1 2.1M8.7 8.7l2.1 2.1M3.2 10.8l2.1-2.1M8.7 5.3l2.1-2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Run scan
+      </button>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+
+    <!-- Welcome banner (shown on ?welcome=1) -->
+    <div class="welcome-banner" id="welcome-banner">
+      <div>
+        <div class="wb-title">Welcome to ThreatSentinel! 🎉</div>
+        <div class="wb-sub">Your 14-day trial is active. We've run an initial scan on your environment — 14 reachable threats detected.</div>
+      </div>
+      <button class="wb-close" onclick="closeWelcome()">×</button>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    <div id="tab-overview">
+      <!-- Metrics -->
+      <div class="metrics">
+        <div class="metric-card red">
+          <div class="metric-label">Reachable threats<span style="font-size:16px">⚠</span></div>
+          <div class="metric-val red">14</div>
+          <div class="metric-delta down">↑ 2 since last scan</div>
+        </div>
+        <div class="metric-card green">
+          <div class="metric-label">PRs ready to merge<span style="font-size:16px">✓</span></div>
+          <div class="metric-val green">11</div>
+          <div class="metric-delta up">↑ 3 new auto-generated</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Compliance score<span style="font-size:16px">◎</span></div>
+          <div class="metric-val blue">94%</div>
+          <div class="metric-delta up">↑ 2% from last week</div>
+        </div>
+        <div class="metric-card amber">
+          <div class="metric-label">Suppressed (unreachable)<span style="font-size:16px">⊘</span></div>
+          <div class="metric-val" style="color:var(--mute)">298</div>
+          <div class="metric-delta" style="color:var(--mute2)">False positives eliminated</div>
+        </div>
+      </div>
+
+      <!-- Threat feed + Risk score -->
+      <div class="grid3">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Live threat feed</span>
+            <button class="panel-action" onclick="setTab('threats')">View all →</button>
+          </div>
+          <div class="panel-body">
+            <div class="threat-row"><span class="threat-sev sev-crit"></span><span class="threat-name">SQL injection — patients API</span><span class="threat-src">api/patients.py:114</span><span class="threat-badge badge-crit">CRITICAL</span></div>
+            <div class="threat-row"><span class="threat-sev sev-crit"></span><span class="threat-name">PHI exposed in error logs</span><span class="threat-src">middleware/logger.js:38</span><span class="threat-badge badge-crit">CRITICAL</span></div>
+            <div class="threat-row"><span class="threat-sev sev-high"></span><span class="threat-name">Unauthenticated FHIR endpoint</span><span class="threat-src">routes/fhir/r4.ts:201</span><span class="threat-badge badge-high">HIGH</span></div>
+            <div class="threat-row"><span class="threat-sev sev-high"></span><span class="threat-name">HL7 message injection risk</span><span class="threat-src">parsers/hl7/parser.go:88</span><span class="threat-badge badge-high">HIGH</span></div>
+            <div class="threat-row"><span class="threat-sev sev-med"></span><span class="threat-name">Weak JWT signing key</span><span class="threat-src">auth/tokens.py:22</span><span class="threat-badge badge-med">MEDIUM</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Risk posture</span></div>
+          <div class="risk-gauge">
+            <div class="risk-score" id="risk-score">94</div>
+            <div class="risk-label">Security score</div>
+            <div class="risk-tier"><span class="risk-tier-dot"></span>Low risk</div>
+            <div class="risk-desc">11 of 14 critical and high findings have auto-generated PRs ready to merge. Merging all would raise your score to 99.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRs + Agent log -->
+      <div class="grid2">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Autonomous remediation PRs</span>
+            <button class="panel-action" onclick="setTab('prs')">View all 11 →</button>
+          </div>
+          <div class="panel-body">
+            <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Fix SQL injection — patients endpoint</span><span class="pr-status pr-ready">Ready</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+            <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Redact PHI from error middleware</span><span class="pr-status pr-ready">Ready</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+            <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Add auth guard — FHIR R4 routes</span><span class="pr-status pr-ready">Ready</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+            <div class="pr-row"><div class="pr-icon review">PR</div><span class="pr-name">Sanitize HL7 parser input fields</span><span class="pr-status pr-review">In review</span></div>
+            <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Rotate JWT signing algorithm (RS256)</span><span class="pr-status pr-ready">Ready</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Agent activity</span>
+            <button class="panel-action" onclick="setTab('agents')">View all →</button>
+          </div>
+          <div class="panel-body" id="agent-log">
+            <div class="agent-row"><span class="agent-dot" style="background:var(--green)"></span><span class="agent-msg">PR #441 <strong>auto-merged</strong> — SQL injection patch passed CI</span><span class="agent-time">2 min</span></div>
+            <div class="agent-row"><span class="agent-dot" style="background:var(--green)"></span><span class="agent-msg">FHIR endpoint auth gap detected → <strong>PR #442 opened</strong></span><span class="agent-time">14 min</span></div>
+            <div class="agent-row"><span class="agent-dot" style="background:var(--amber)"></span><span class="agent-msg">HL7 parser PR flagged — <strong>needs manual sign-off</strong></span><span class="agent-time">1 hr</span></div>
+            <div class="agent-row"><span class="agent-dot" style="background:var(--green)"></span><span class="agent-msg">Audit pack regenerated — <strong>97% HIPAA coverage</strong> confirmed</span><span class="agent-time">3 hr</span></div>
+            <div class="agent-row"><span class="agent-dot" style="background:var(--blue)"></span><span class="agent-msg">Full production <strong>reachability scan</strong> completed — 298 suppressed</span><span class="agent-time">6 hr</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliance -->
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Compliance coverage</span>
+          <button class="panel-action" onclick="setTab('compliance')">Full report →</button>
+        </div>
+        <div class="compliance-list">
+          <div class="comp-item"><span class="comp-name">HIPAA</span><div class="comp-bar-wrap"><div class="comp-bar green-bar" style="width:0%" data-w="97%"></div></div><span class="comp-pct">97%</span></div>
+          <div class="comp-item"><span class="comp-name">HITRUST</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:0%" data-w="91%"></div></div><span class="comp-pct">91%</span></div>
+          <div class="comp-item"><span class="comp-name">SOC 2</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:0%" data-w="88%"></div></div><span class="comp-pct">88%</span></div>
+          <div class="comp-item"><span class="comp-name">ISO 27001</span><div class="comp-bar-wrap"><div class="comp-bar amber-bar" style="width:0%" data-w="85%"></div></div><span class="comp-pct">85%</span></div>
+          <div class="comp-item"><span class="comp-name">FedRAMP</span><div class="comp-bar-wrap"><div class="comp-bar amber-bar" style="width:0%" data-w="79%"></div></div><span class="comp-pct">79%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREAT FEED TAB (hidden) -->
+    <div id="tab-threats" style="display:none">
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title">All reachable threats (14)</span><button class="panel-action" onclick="triggerScan()">Run new scan</button></div>
+        <div class="panel-body">
+          <div class="threat-row"><span class="threat-sev sev-crit"></span><span class="threat-name">SQL injection — patients query builder</span><span class="threat-src">api/patients.py:114</span><span class="threat-badge badge-crit">CRITICAL</span><span class="threat-time">2 min ago</span></div>
+          <div class="threat-row"><span class="threat-sev sev-crit"></span><span class="threat-name">PHI exposed in error response logs</span><span class="threat-src">middleware/logger.js:38</span><span class="threat-badge badge-crit">CRITICAL</span><span class="threat-time">2 min ago</span></div>
+          <div class="threat-row"><span class="threat-sev sev-high"></span><span class="threat-name">Unauthenticated FHIR R4 endpoint</span><span class="threat-src">routes/fhir/r4.ts:201</span><span class="threat-badge badge-high">HIGH</span><span class="threat-time">2 min ago</span></div>
+          <div class="threat-row"><span class="threat-sev sev-high"></span><span class="threat-name">HL7 message injection risk</span><span class="threat-src">parsers/hl7/parser.go:88</span><span class="threat-badge badge-high">HIGH</span><span class="threat-time">2 min ago</span></div>
+          <div class="threat-row"><span class="threat-sev sev-high"></span><span class="threat-name">Insecure direct object reference</span><span class="threat-src">api/records.py:67</span><span class="threat-badge badge-high">HIGH</span><span class="threat-time">2 min ago</span></div>
+          <div class="threat-row"><span class="threat-sev sev-med"></span><span class="threat-name">Weak JWT signing algorithm</span><span class="threat-src">auth/tokens.py:22</span><span class="threat-badge badge-med">MEDIUM</span><span class="threat-time">2 min ago</span></div>
+          <div class="threat-row"><span class="threat-sev sev-med"></span><span class="threat-name">Missing rate limiting on auth endpoint</span><span class="threat-src">routes/auth/login.ts:15</span><span class="threat-badge badge-med">MEDIUM</span><span class="threat-time">2 min ago</span></div>
+          <div class="threat-row"><span class="threat-sev sev-low"></span><span class="threat-name">Outdated cryptography library</span><span class="threat-src">requirements.txt:34</span><span class="threat-badge badge-low">LOW</span><span class="threat-time">2 min ago</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRS TAB -->
+    <div id="tab-prs" style="display:none">
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title">Autonomous remediation pull requests (11)</span></div>
+        <div class="panel-body">
+          <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Fix SQL injection — patients endpoint</span><span class="pr-status pr-ready">Ready to merge</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+          <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Redact PHI from error response middleware</span><span class="pr-status pr-ready">Ready to merge</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+          <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Add authentication guard — FHIR R4 routes</span><span class="pr-status pr-ready">Ready to merge</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+          <div class="pr-row"><div class="pr-icon review">PR</div><span class="pr-name">Sanitize HL7 parser input field handling</span><span class="pr-status pr-review">In review</span></div>
+          <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Rotate JWT signing to RS256 algorithm</span><span class="pr-status pr-ready">Ready to merge</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+          <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Add rate limiting — authentication endpoint</span><span class="pr-status pr-ready">Ready to merge</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+          <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Fix IDOR — add ownership check on records API</span><span class="pr-status pr-ready">Ready to merge</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+          <div class="pr-row"><div class="pr-icon ready">PR</div><span class="pr-name">Update cryptography library to 42.0.5</span><span class="pr-status pr-ready">Ready to merge</span><button class="pr-merge-btn" onclick="mergePR(this)">Merge</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLIANCE TAB -->
+    <div id="tab-compliance" style="display:none">
+      <div class="metrics">
+        <div class="metric-card green"><div class="metric-label">HIPAA / HITECH</div><div class="metric-val green">97%</div><div class="metric-delta up">↑ 3% this month</div></div>
+        <div class="metric-card"><div class="metric-label">HITRUST CSF</div><div class="metric-val blue">91%</div><div class="metric-delta up">↑ 5% this month</div></div>
+        <div class="metric-card"><div class="metric-label">SOC 2 Type II</div><div class="metric-val blue">88%</div><div class="metric-delta up">↑ 2% this month</div></div>
+        <div class="metric-card amber"><div class="metric-label">ISO 27001</div><div class="metric-val amber">85%</div><div class="metric-delta up">↑ 1% this month</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title">Compliance framework coverage</span><button class="panel-action">Download audit pack</button></div>
+        <div class="compliance-list">
+          <div class="comp-item"><span class="comp-name">HIPAA</span><div class="comp-bar-wrap"><div class="comp-bar green-bar" style="width:97%"></div></div><span class="comp-pct">97%</span></div>
+          <div class="comp-item"><span class="comp-name">HITRUST</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:91%"></div></div><span class="comp-pct">91%</span></div>
+          <div class="comp-item"><span class="comp-name">SOC 2</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:88%"></div></div><span class="comp-pct">88%</span></div>
+          <div class="comp-item"><span class="comp-name">ISO 27001</span><div class="comp-bar-wrap"><div class="comp-bar amber-bar" style="width:85%"></div></div><span class="comp-pct">85%</span></div>
+          <div class="comp-item"><span class="comp-name">FedRAMP</span><div class="comp-bar-wrap"><div class="comp-bar amber-bar" style="width:79%"></div></div><span class="comp-pct">79%</span></div>
+          <div class="comp-item"><span class="comp-name">NIST CSF</span><div class="comp-bar-wrap"><div class="comp-bar amber-bar" style="width:82%"></div></div><span class="comp-pct">82%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENT LOG TAB -->
+    <div id="tab-agents" style="display:none">
+      <div class="panel">
+        <div class="panel-head"><span class="panel-title">Agent activity log</span></div>
+        <div class="panel-body">
+          <div class="agent-row"><span class="agent-dot" style="background:var(--green)"></span><span class="agent-msg">PR #441 <strong>auto-merged</strong> — SQL injection patch passed CI and all tests</span><span class="agent-time">2 min ago</span></div>
+          <div class="agent-row"><span class="agent-dot" style="background:var(--green)"></span><span class="agent-msg">FHIR endpoint auth gap detected → <strong>PR #442 opened</strong> with auth guard</span><span class="agent-time">14 min ago</span></div>
+          <div class="agent-row"><span class="agent-dot" style="background:var(--amber)"></span><span class="agent-msg">HL7 parser PR flagged — <strong>needs manual review</strong> before merge</span><span class="agent-time">1 hr ago</span></div>
+          <div class="agent-row"><span class="agent-dot" style="background:var(--green)"></span><span class="agent-msg">Audit pack regenerated — <strong>97% HIPAA coverage</strong> confirmed across 142 controls</span><span class="agent-time">3 hr ago</span></div>
+          <div class="agent-row"><span class="agent-dot" style="background:var(--blue)"></span><span class="agent-msg">Full production <strong>reachability scan</strong> completed — 298 theoretical vulns suppressed</span><span class="agent-time">6 hr ago</span></div>
+          <div class="agent-row"><span class="agent-dot" style="background:var(--green)"></span><span class="agent-msg">PHI middleware redaction patch <strong>verified in staging</strong> — promoting to PR</span><span class="agent-time">7 hr ago</span></div>
+          <div class="agent-row"><span class="agent-dot" style="background:var(--mute2)"></span><span class="agent-msg">Scheduled scan initiated — CICIDS-2017 model loaded and running</span><span class="agent-time">9 hr ago</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://YOUR_PROJECT_ID.supabase.co';
+const SUPABASE_ANON_KEY='YOUR_ANON_KEY';
+const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+// Auth guard
+(async()=>{
+  const {data:{session}}=await supabase.auth.getSession();
+  if(!session){window.location.href='login.html';return;}
+  const user=session.user;
+  const name=user.user_metadata?.full_name||user.email.split('@')[0];
+  const initials=name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('user-name').textContent=name.split(' ')[0];
+  document.getElementById('user-avatar').textContent=initials;
+})();
+
+// Welcome banner
+if(new URLSearchParams(window.location.search).get('welcome')==='1'){
+  document.getElementById('welcome-banner').classList.add('show');
+}
+function closeWelcome(){document.getElementById('welcome-banner').classList.remove('show');}
+
+// Clock
+function updateClock(){
+  document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+}
+updateClock();setInterval(updateClock,1000);
+
+// Tabs
+const tabs=['overview','threats','prs','compliance','agents'];
+function setTab(t){
+  tabs.forEach(id=>{
+    const el=document.getElementById('tab-'+id);
+    if(el)el.style.display=id===t?'block':'none';
+  });
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const titles={overview:'Overview',threats:'Threat Feed',prs:'Remediation PRs',compliance:'Compliance',agents:'Agent Activity'};
+  document.getElementById('tab-title').textContent=titles[t]||t;
+  const navMap={overview:0,threats:1,prs:2,compliance:3,agents:4};
+  const navItems=document.querySelectorAll('.nav-item');
+  if(navMap[t]!==undefined)navItems[navMap[t]].classList.add('active');
+}
+
+// Scan
+function triggerScan(){
+  const btn=document.getElementById('scan-btn');
+  btn.classList.add('scanning');btn.textContent='Scanning…';
+  setTimeout(()=>{btn.classList.remove('scanning');btn.innerHTML='<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v3M7 10v3M1 7h3M10 7h3M3.2 3.2l2.1 2.1M8.7 8.7l2.1 2.1M3.2 10.8l2.1-2.1M8.7 5.3l2.1-2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Run scan';},4000);
+}
+
+// Merge PR
+function mergePR(btn){
+  const row=btn.closest('.pr-row');
+  btn.textContent='Merged ✓';btn.style.background='var(--mute2)';btn.disabled=true;
+  row.style.opacity='0.5';
+}
+
+// Logout
+async function handleLogout(){
+  await supabase.auth.signOut();
+  window.location.href='login.html';
+}
+
+// Animate compliance bars on load
+setTimeout(()=>{
+  document.querySelectorAll('.comp-bar[data-w]').forEach(bar=>{
+    bar.style.width=bar.dataset.w;
+  });
+},400);
+</script>
+</body>
+</html>
