@@ -448,7 +448,7 @@ const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
 // Auth guard
 (async()=>{
-  const {data:{session}}=await supabase.auth.getSession();
+  const {data:{session}}=await sb.auth.getSession();
   if(!session){window.location.href='login.html';return;}
   const user=session.user;
   const name=user.user_metadata?.full_name||user.email.split('@')[0];
@@ -500,7 +500,7 @@ function mergePR(btn){
 
 // Logout
 async function handleLogout(){
-  await supabase.auth.signOut();
+  await sb.auth.signOut();
   window.location.href='login.html';
 }
 
