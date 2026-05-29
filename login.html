@@ -151,11 +151,11 @@ a:hover{text-decoration:underline}
 // Get them from: https://app.supabase.com → Settings → API
 const SUPABASE_URL = 'https://esztisxqhdhkyaoaxfxl.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_Nfl2HFR0yf1fFaHjDf_JFw_WbCvUj3X';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── CHECK IF ALREADY LOGGED IN ──
 (async()=>{
-  const {data:{session}}=await supabase.auth.getSession();
+  const {data:{session}}=await sb.auth.getSession();
   if(session) window.location.href='dashboard.html';
 })();
 
@@ -187,7 +187,7 @@ async function handleLogin(e){
   const spin=document.getElementById('spinner');
   btn.disabled=true;txt.textContent='Signing in…';spin.style.display='block';
 
-  const {data,error}=await supabase.auth.signInWithPassword({email,password});
+  const {data,error}=await sb.auth.signInWithPassword({email,password});
 
   if(error){
     btn.disabled=false;txt.textContent='Sign in';spin.style.display='none';
@@ -203,7 +203,7 @@ async function handleLogin(e){
 
 // ── GOOGLE OAUTH ──
 async function handleGoogleLogin(){
-  await supabase.auth.signInWithOAuth({
+  await sb.auth.signInWithOAuth({
     provider:'google',
     options:{redirectTo:window.location.origin+'/dashboard.html'}
   });
