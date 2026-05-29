@@ -192,10 +192,10 @@ a:hover{text-decoration:underline}
 <script>
 const SUPABASE_URL = 'https://esztisxqhdhkyaoaxfxl.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_Nfl2HFR0yf1fFaHjDf_JFw_WbCvUj3X';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 (async()=>{
-  const {data:{session}}=await supabase.auth.getSession();
+  const {data:{session}}=await sb.auth.getSession();
   if(session) window.location.href='dashboard.html';
 })();
 
@@ -229,7 +229,7 @@ async function handleSignup(e){
   document.getElementById('btn-text').textContent='Creating account…';
   document.getElementById('spinner').style.display='block';
 
-  const {data,error}=await supabase.auth.signUp({
+  const {data,error}=await sb.auth.signUp({
     email,password,
     options:{
       data:{full_name:`${fname} ${lname}`,company,role,plan:'trial'},
@@ -249,7 +249,7 @@ async function handleSignup(e){
 }
 
 async function handleGoogleSignup(){
-  await supabase.auth.signInWithOAuth({
+  await sb.auth.signInWithOAuth({
     provider:'google',
     options:{redirectTo:window.location.origin+'/dashboard.html'}
   });
