@@ -213,7 +213,7 @@ body{font-family:var(--sans);background:var(--surf);color:var(--ink);display:fle
   <button class="nav-item" onclick="window.location.href='pricing.html'">
     <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2 7h12" stroke="currentColor" stroke-width="1.3"/></svg>
     Billing &amp; Plan
-    <span class="nav-badge amber">Trial</span>
+    <span class="nav-badge amber" data-plan-badge>Trial</span>
   </button>
 
   <div class="sidebar-modules">
@@ -447,21 +447,132 @@ const SUPABASE_ANON_KEY = 'sb_publishable_Nfl2HFR0yf1fFaHjDf_JFw_WbCvUj3X';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 const API_BASE='https://web-production-dfaec.up.railway.app';
 
-// Auth guard
+// ── MODULE & PLAN CONFIG ──
+// Each module can be purchased standalone OR as part of a bundle.
+// Bundles: Professional (any 3), Enterprise (all 7).
+const ALL_MODULES = [
+  'ThreatSentinel','NetGuard','VisionSentinel',
+  'SignalSentinel','LocateSentinel','OptimaSentinel','PAMSentinel'
+];
+
+// Bundle definitions (override individual modules)
+const BUNDLES = {
+  professional: { label:'Professional', badge:'Pro',        badgeColor:'green', moduleList:['ThreatSentinel','NetGuard','VisionSentinel'] },
+  enterprise:   { label:'Enterprise',   badge:'Enterprise', badgeColor:'green', moduleList:ALL_MODULES },
+};
+
+// ── APPLY MODULES UI ──
+// activeModules = array of module names the user has purchased
+function applyModules(activeModules, planLabel) {
+  // Update billing badge
+  const billingBadge = document.querySelector('[data-plan-badge]');
+  if(billingBadge) {
+    const isBundle = planLabel === 'Professional' || planLabel === 'Enterprise';
+    billingBadge.textContent = planLabel || 'Trial';
+    billingBadge.className = `nav-badge ${activeModules.length > 1 ? 'green' : activeModules.length === 1 && planLabel !== 'Free Trial' ? 'blue' : 'amber'}`;
+  }
+
+  // Update user plan text
+  const planEl = document.querySelector('.user-plan');
+  if(planEl) planEl.textContent = planLabel || 'Free Trial';
+
+  // Activate/deactivate module pills
+  document.querySelectorAll('.module-pill').forEach(pill => {
+    const name = pill.querySelector('span:first-child')?.textContent?.trim();
+    const dot = pill.querySelector('.mpill-dot');
+    if(activeModules.includes(name)) {
+      pill.className = 'module-pill active-m';
+      if(dot) dot.className = 'mpill-dot on';
+    } else {
+      pill.className = 'module-pill inactive-m';
+      if(dot) dot.className = 'mpill-dot off';
+    }
+  });
+}
+
+// ── RESOLVE MODULES FROM USER METADATA ──
+function resolveModules(metadata) {
+  const plan = metadata?.plan || 'trial';
+  const purchased = metadata?.modules || []; // array of individual module names
+
+  // Check if bundle
+  if(BUNDLES[plan]) {
+    return { modules: BUNDLES[plan].moduleList, label: BUNDLES[plan].label };
+  }
+  // Individual modules purchased
+  if(purchased.length > 0) {
+    const label = purchased.length === 1 ? purchased[0] : `${purchased.length} Modules`;
+    return { modules: purchased, label };
+  }
+  // Trial default
+  return { modules: ['ThreatSentinel'], label: 'Free Trial' };
+}
+
+// ── AUTH + MODULE INIT ──
 (async()=>{
   const {data:{session}}=await sb.auth.getSession();
   if(!session){window.location.href='login.html';return;}
+
   const user=session.user;
   const name=user.user_metadata?.full_name||user.email.split('@')[0];
   const initials=name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
   document.getElementById('user-name').textContent=name.split(' ')[0];
   document.getElementById('user-avatar').textContent=initials;
+
+  const params = new URLSearchParams(window.location.search);
+  const newModule = params.get('module');   // e.g. ?module=NetGuard
+  const newBundle = params.get('plan');     // e.g. ?plan=professional
+  const isUpgrade = params.get('upgraded') === '1';
+
+  let metadata = { ...user.user_metadata };
+
+  if(isUpgrade) {
+    if(newBundle && BUNDLES[newBundle]) {
+      // Bundle purchased — set plan, clear individual modules
+      metadata.plan = newBundle;
+      metadata.modules = BUNDLES[newBundle].moduleList;
+    } else if(newModule && ALL_MODULES.includes(newModule)) {
+      // Individual module purchased — ADD to existing modules
+      const existing = metadata.modules || ['ThreatSentinel'];
+      if(!existing.includes(newModule)) existing.push(newModule);
+      metadata.modules = existing;
+      metadata.plan = 'modules'; // signals individual module billing
+    }
+    // Save updated metadata to Supabase
+    await sb.auth.updateUser({ data: metadata });
+    window.history.replaceState({}, '', 'dashboard.html');
+    showUpgradeBanner(newModule || newBundle, metadata);
+  }
+
+  // Apply modules to UI
+  const resolved = resolveModules(metadata);
+  applyModules(resolved.modules, resolved.label);
+
+  if(params.get('welcome')==='1') {
+    document.getElementById('welcome-banner').classList.add('show');
+  }
 })();
 
-// Welcome banner
-if(new URLSearchParams(window.location.search).get('welcome')==='1'){
-  document.getElementById('welcome-banner').classList.add('show');
+// ── UPGRADE SUCCESS BANNER ──
+function showUpgradeBanner(purchased, metadata) {
+  const resolved = resolveModules(metadata);
+  const banner = document.getElementById('welcome-banner');
+  if(!banner) return;
+  const displayName = BUNDLES[purchased]?.label || purchased || 'your plan';
+  banner.innerHTML = `
+    <div>
+      <div class="wb-title">🎉 ${displayName} activated!</div>
+      <div class="wb-sub">
+        You now have access to: ${resolved.modules.join(', ')}.
+        ${resolved.modules.length < ALL_MODULES.length ? 'Add more modules anytime from the pricing page.' : 'Full platform access unlocked.'}
+      </div>
+    </div>
+    <button class="wb-close" onclick="closeWelcome()">×</button>
+  `;
+  banner.classList.add('show');
+  setTimeout(()=>banner.classList.remove('show'), 10000);
 }
+
 function closeWelcome(){document.getElementById('welcome-banner').classList.remove('show');}
 
 // Clock
