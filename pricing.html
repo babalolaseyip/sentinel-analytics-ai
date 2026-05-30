@@ -1,90 +1,262 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="Sentinel Analytics AI Pricing — Free trial, Starter, Professional, and Enterprise plans."><title>Pricing — Sentinel Analytics AI</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/styles.css">
-<style>.faq-list{max-width:800px}.faq-item{border-bottom:1px solid var(--bdr)}.faq-q{width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--sans);font-size:16px;font-weight:600;color:var(--ink);gap:16px;transition:color .2s}.faq-q:hover{color:var(--blue)}.faq-icon{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bdr2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:var(--mute);transition:all .25s}.faq-item.open .faq-icon{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}.faq-a{font-size:15px;font-weight:400;line-height:1.75;color:var(--mute);padding-bottom:22px;display:none}.faq-item.open .faq-a{display:block}</style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="Sentinel Analytics AI Pricing — Individual modules, bundles, and enterprise plans."><title>Pricing — Sentinel Analytics AI</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/styles.css">
+<style>
+/* ── MODULE PRICING CARDS ── */
+.module-price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:16px}
+.module-price-grid.row2{grid-template-columns:repeat(4,1fr)}
+.mpc{background:#fff;border:1px solid var(--bdr);border-radius:var(--r16);padding:28px 24px;position:relative;transition:border-color .25s,box-shadow .25s,transform .25s}
+.mpc:hover{border-color:var(--blue-bdr);box-shadow:0 8px 32px rgba(24,71,245,.09);transform:translateY(-2px)}
+.mpc.live{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,71,245,.07)}
+.mpc-live-badge{position:absolute;top:0;right:20px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;padding:3px 10px;border-radius:0 0 6px 6px}
+.mpc-coming-badge{position:absolute;top:0;right:20px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--surf2);color:var(--mute);padding:3px 10px;border-radius:0 0 6px 6px;border:1px solid var(--bdr)}
+.mpc-icon{font-size:24px;margin-bottom:12px}
+.mpc-name{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.01em;margin-bottom:4px}
+.mpc-tag{font-size:12px;font-weight:500;color:var(--blue);margin-bottom:14px}
+.mpc-desc{font-size:13px;color:var(--mute);line-height:1.65;margin-bottom:18px}
+.mpc-price{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:4px}
+.mpc-price sup{font-size:14px;font-weight:700;vertical-align:super;line-height:0}
+.mpc-price sub{font-size:13px;font-weight:400;color:var(--mute)}
+.mpc-trial{font-size:12px;color:var(--green);font-weight:500;margin-bottom:16px}
+.mpc-btns{display:flex;flex-direction:column;gap:8px}
+.mpc-btn-primary{display:block;text-align:center;background:var(--blue);color:#fff;padding:10px 16px;border-radius:var(--r8);font-size:13px;font-weight:600;transition:all .18s;text-decoration:none}
+.mpc-btn-primary:hover{background:var(--blue-h);transform:translateY(-1px)}
+.mpc-btn-secondary{display:block;text-align:center;background:var(--surf);color:var(--mute);padding:9px 16px;border-radius:var(--r8);font-size:13px;font-weight:500;border:1px solid var(--bdr);transition:all .18s;text-decoration:none}
+.mpc-btn-secondary:hover{border-color:var(--bdr2);color:var(--ink)}
+.mpc-btn-soon{display:block;text-align:center;background:var(--surf2);color:var(--mute2);padding:10px 16px;border-radius:var(--r8);font-size:13px;font-weight:500;cursor:default}
+/* bundle section */
+.bundle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.bc{background:#fff;border:1px solid var(--bdr);border-radius:var(--r16);padding:36px 28px;position:relative;transition:border-color .25s,box-shadow .25s}
+.bc:hover{border-color:var(--bdr2)}
+.bc.feat{border-color:var(--blue);box-shadow:0 0 0 4px rgba(24,71,245,.08)}
+.bc-pop{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;padding:4px 16px;border-radius:0 0 8px 8px}
+.bc-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+.bc-price{font-size:44px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-.03em;margin-bottom:4px}
+.bc-price sup{font-size:20px;font-weight:700;vertical-align:super;line-height:0}
+.bc-price sub{font-size:15px;font-weight:400;color:var(--mute)}
+.bc-desc{font-size:13px;color:var(--mute);margin-bottom:20px;line-height:1.6}
+.bc-modules{font-size:13px;color:var(--mute2);margin-bottom:20px;line-height:1.8}
+.bc-modules strong{color:var(--ink2);font-weight:600}
+.bc-save{display:inline-block;font-size:11px;font-weight:700;background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;padding:3px 10px;border-radius:10px;margin-bottom:20px}
+/* faq */
+.faq-list{max-width:800px}.faq-item{border-bottom:1px solid var(--bdr)}.faq-q{width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--sans);font-size:16px;font-weight:600;color:var(--ink);gap:16px;transition:color .2s}.faq-q:hover{color:var(--blue)}.faq-icon{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bdr2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:var(--mute);transition:all .25s}.faq-item.open .faq-icon{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}.faq-a{font-size:15px;font-weight:400;line-height:1.75;color:var(--mute);padding-bottom:22px;display:none}.faq-item.open .faq-a{display:block}
+@media(max-width:1024px){.module-price-grid,.module-price-grid.row2,.bundle-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.module-price-grid,.module-price-grid.row2,.bundle-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <nav id="nav"><div class="nav-in"><a href="index.html" class="nav-logo"><div class="nav-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div><span class="nav-wordmark">Sentinel<span>Analytics</span>.AI</span></a><ul class="nav-links"><li><a href="platform.html">Platform</a></li><li><a href="integrations.html">Integrations</a></li><li><a href="markets.html">Markets</a></li><li><a href="research.html">Research</a></li><li><a href="pricing.html" class="active">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-act"><a href="login.html" class="btn btn-white-sm">Sign in</a><a href="signup.html" class="btn btn-blue-sm">Start free <span class="arr">→</span></a></div></div></nav>
 
-<div class="page-hero"><div class="page-hero-in"><div class="page-hero-tag">Pricing</div><h1>Start free. Scale with your team.</h1><p>Begin with one module and expand across the platform. Annual billing saves 20%. Enterprise and government pricing is custom — contact us directly for a tailored proposal.</p></div></div>
+<div class="page-hero"><div class="page-hero-in"><div class="page-hero-tag">Pricing</div><h1>One module or all seven.<br>You choose what you need.</h1><p>Every Sentinel module is an independent SaaS product with its own 14-day free trial. Subscribe to exactly what your organisation needs — add more modules as you grow. No lock-in. Cancel anytime.</p></div></div>
 
+<!-- INDIVIDUAL MODULES -->
 <section class="sec">
   <div class="wrap">
-    <div class="price-grid">
-      <div class="pc rv d1">
-        <div class="pc-tier">Free Trial</div>
-        <div class="pc-price">$0</div>
-        <div class="pc-cad">14 days · No credit card required</div>
-        <div class="pc-div"></div>
-        <ul class="pc-feats">
-          <li>1 Sentinel module</li><li>Live dashboard access</li><li>Up to 5,000 events / day</li>
-          <li>5 user seats</li><li>Community support</li>
-          <li class="off">Compliance mapping</li><li class="off">Autonomous PR engine</li><li class="off">Audit evidence pack</li>
-        </ul>
-        <a href="signup.html" class="btn btn-white btn-full">Start free →</a>
+    <div class="sh rv">
+      <div class="sh-tag">Individual modules</div>
+      <h2 class="sh-title">Start with the module<br>your team needs most.</h2>
+      <p class="sh-sub">Each module targets a specific use case. Try it free for 14 days — no credit card required. Subscribe at $299/mo if it fits.</p>
+    </div>
+
+    <!-- Row 1: Modules 1–3 -->
+    <div class="module-price-grid rv">
+      <!-- ThreatSentinel LIVE -->
+      <div class="mpc live">
+        <div class="mpc-live-badge">Live Now</div>
+        <div class="mpc-icon">🛡️</div>
+        <div class="mpc-name">ThreatSentinel</div>
+        <div class="mpc-tag">Network threat detection</div>
+        <div class="mpc-desc">ML ensemble anomaly detection for your network. Built for security teams drowning in false positives — validated on CICIDS-2017 and UNSW-NB15.</div>
+        <div class="mpc-price"><sup>$</sup>299<sub>/mo</sub></div>
+        <div class="mpc-trial">✓ 14-day free trial available</div>
+        <div class="mpc-btns">
+          <a href="signup.html" class="mpc-btn-primary">Start free trial →</a>
+          <a href="https://buy.stripe.com/test_7sY9AU8X2ekR0Fyakhew800" target="_blank" class="mpc-btn-secondary">Subscribe — $299/mo</a>
+        </div>
       </div>
-      <div class="pc rv d2">
-        <div class="pc-tier">Starter</div>
-        <div class="pc-price"><sup>$</sup>299<sub>/mo</sub></div>
-        <div class="pc-cad">Per module · Billed monthly</div>
-        <div class="pc-div"></div>
-        <ul class="pc-feats">
-          <li>1 Sentinel module</li><li>Unlimited events / day</li><li>10 user seats</li>
-          <li>Email &amp; Slack alerts</li><li>HIPAA control mapping</li><li>Standard compliance report</li>
-          <li class="off">Autonomous PR engine</li><li class="off">Audit evidence pack</li>
-        </ul>
-        <a href="https://buy.stripe.com/test_7sY9AU8X2ekR0Fyakhew800" target="_blank" class="btn btn-white btn-full">Get started →</a>
+
+      <!-- NetGuard COMING SOON -->
+      <div class="mpc">
+        <div class="mpc-coming-badge">Coming soon</div>
+        <div class="mpc-icon">🔒</div>
+        <div class="mpc-name">NetGuard</div>
+        <div class="mpc-tag">Network intrusion detection</div>
+        <div class="mpc-desc">ML-based NIDS for web applications and enterprise network traffic. Built for fintech, hospital networks, and regulated perimeter security.</div>
+        <div class="mpc-price"><sup>$</sup>299<sub>/mo</sub></div>
+        <div class="mpc-trial">✓ Free trial on launch</div>
+        <div class="mpc-btns">
+          <a href="contact.html" class="mpc-btn-secondary">Join waitlist →</a>
+        </div>
       </div>
-      <div class="pc feat rv d3">
-        <div class="pc-pop">Most popular</div>
-        <div class="pc-tier" style="margin-top:18px">Professional</div>
-        <div class="pc-price"><sup>$</sup>799<sub>/mo</sub></div>
-        <div class="pc-cad">Up to 3 modules · Billed monthly</div>
-        <div class="pc-div"></div>
-        <ul class="pc-feats">
-          <li>3 Sentinel modules</li><li>Unlimited events / day</li><li>25 user seats</li>
-          <li>Autonomous PR engine</li><li>HIPAA · HITRUST · SOC 2 mapping</li>
-          <li>Audit evidence pack</li><li>Database integration support</li><li>Priority support — 4hr SLA</li>
-        </ul>
+
+      <!-- VisionSentinel COMING SOON -->
+      <div class="mpc">
+        <div class="mpc-coming-badge">Coming soon</div>
+        <div class="mpc-icon">📷</div>
+        <div class="mpc-name">VisionSentinel</div>
+        <div class="mpc-tag">AI video surveillance</div>
+        <div class="mpc-desc">Anomaly detection in continuous HD video streams. Built for hospitals, data centres, trading floors, and government facilities.</div>
+        <div class="mpc-price"><sup>$</sup>299<sub>/mo</sub></div>
+        <div class="mpc-trial">✓ Free trial on launch</div>
+        <div class="mpc-btns">
+          <a href="contact.html" class="mpc-btn-secondary">Join waitlist →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Modules 4–7 -->
+    <div class="module-price-grid row2 rv d1">
+      <!-- SignalSentinel -->
+      <div class="mpc">
+        <div class="mpc-coming-badge">Coming soon</div>
+        <div class="mpc-icon">📡</div>
+        <div class="mpc-name">SignalSentinel</div>
+        <div class="mpc-tag">Signal &amp; pattern recognition</div>
+        <div class="mpc-desc">Pattern detection in noisy time-series data. Built for financial trading signals, medical device streams, and industrial IoT monitoring.</div>
+        <div class="mpc-price"><sup>$</sup>299<sub>/mo</sub></div>
+        <div class="mpc-trial">✓ Free trial on launch</div>
+        <div class="mpc-btns"><a href="contact.html" class="mpc-btn-secondary">Join waitlist →</a></div>
+      </div>
+
+      <!-- LocateSentinel -->
+      <div class="mpc">
+        <div class="mpc-coming-badge">Coming soon</div>
+        <div class="mpc-icon">📍</div>
+        <div class="mpc-name">LocateSentinel</div>
+        <div class="mpc-tag">Wi-Fi asset localization</div>
+        <div class="mpc-desc">ML-based indoor device location using HMM-DMD temporal modelling. Built for hospital equipment tracking and secure campus localization.</div>
+        <div class="mpc-price"><sup>$</sup>299<sub>/mo</sub></div>
+        <div class="mpc-trial">✓ Free trial on launch</div>
+        <div class="mpc-btns"><a href="contact.html" class="mpc-btn-secondary">Join waitlist →</a></div>
+      </div>
+
+      <!-- OptimaSentinel -->
+      <div class="mpc">
+        <div class="mpc-coming-badge">Coming soon</div>
+        <div class="mpc-icon">⚙️</div>
+        <div class="mpc-name">OptimaSentinel</div>
+        <div class="mpc-tag">Scheduling &amp; optimization</div>
+        <div class="mpc-desc">Priority-based conflict resolution for resource-constrained scheduling. Built for hospital staff scheduling and government ground station allocation.</div>
+        <div class="mpc-price"><sup>$</sup>299<sub>/mo</sub></div>
+        <div class="mpc-trial">✓ Free trial on launch</div>
+        <div class="mpc-btns"><a href="contact.html" class="mpc-btn-secondary">Join waitlist →</a></div>
+      </div>
+
+      <!-- PAMSentinel -->
+      <div class="mpc">
+        <div class="mpc-coming-badge">SBIR eligible</div>
+        <div class="mpc-icon">🌊</div>
+        <div class="mpc-name">PAMSentinel</div>
+        <div class="mpc-tag">Passive acoustic monitoring</div>
+        <div class="mpc-desc">~95% detection accuracy. Published in Ecological Informatics &amp; Entropy. Built for NOAA, EPA, DoD, and offshore energy compliance.</div>
+        <div class="mpc-price"><sup>$</sup>299<sub>/mo</sub></div>
+        <div class="mpc-trial">✓ Free trial on launch</div>
+        <div class="mpc-btns"><a href="contact.html" class="mpc-btn-secondary">Request briefing →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLES -->
+<section class="sec sec-gray">
+  <div class="wrap">
+    <div class="sh rv">
+      <div class="sh-tag">Bundles</div>
+      <h2 class="sh-title">Need multiple modules?<br>Bundle and save.</h2>
+      <p class="sh-sub">Combine any modules your organisation needs. The more you bundle, the more you save — or go fully custom with Enterprise.</p>
+    </div>
+    <div class="bundle-grid">
+      <!-- Custom bundle -->
+      <div class="bc rv d1">
+        <div class="bc-label">Custom bundle</div>
+        <div class="bc-price" style="font-size:32px">Your choice</div>
+        <div class="bc-desc">Pick exactly the modules your organisation needs. Mix and match from any available modules — no fixed tiers.</div>
+        <div class="bc-modules">
+          <strong>Any 2 modules</strong> — $549/mo <span style="color:var(--green);font-size:12px">Save $49</span><br>
+          <strong>Any 3 modules</strong> — $799/mo <span style="color:var(--green);font-size:12px">Save $98</span><br>
+          <strong>Any 4 modules</strong> — $999/mo <span style="color:var(--green);font-size:12px">Save $197</span>
+        </div>
+        <a href="contact.html" class="btn btn-outline btn-full">Build your bundle →</a>
+      </div>
+
+      <!-- Professional -->
+      <div class="bc feat rv d2">
+        <div class="bc-pop">Most popular</div>
+        <div class="bc-label" style="margin-top:18px">Professional</div>
+        <div class="bc-price"><sup>$</sup>799<sub>/mo</sub></div>
+        <div class="bc-save">Save $98/mo vs individual</div>
+        <div class="bc-desc">The most common combination for regulated enterprise security teams.</div>
+        <div class="bc-modules">
+          Includes: <strong>ThreatSentinel</strong>, <strong>NetGuard</strong>, <strong>VisionSentinel</strong><br>
+          <span style="font-size:12px;color:var(--mute2)">Swap any module to suit your stack</span>
+        </div>
         <a href="https://buy.stripe.com/test_5kQaEY5KQgsZewodwtew801" target="_blank" class="btn btn-blue btn-full">Get started →</a>
       </div>
-      <div class="pc rv d4">
-        <div class="pc-tier">Enterprise</div>
-        <div class="pc-price" style="font-size:38px">Custom</div>
-        <div class="pc-cad">All modules · Annual contract</div>
-        <div class="pc-div"></div>
-        <ul class="pc-feats">
-          <li>All 7 Sentinel modules</li><li>Unlimited seats</li><li>On-premises deployment option</li>
-          <li>FedRAMP · ISO 27001 · NIST CSF</li><li>Dedicated Customer Success Manager</li>
-          <li>99.9% uptime SLA</li><li>SBIR / STTR contract support</li><li>White-label available</li>
-        </ul>
+
+      <!-- Enterprise -->
+      <div class="bc rv d3">
+        <div class="bc-label">Enterprise</div>
+        <div class="bc-price" style="font-size:32px">Custom</div>
+        <div class="bc-desc">All 7 modules, unlimited seats, on-premises option, dedicated CSM, and government contract support.</div>
+        <div class="bc-modules">
+          <strong>All 7 Sentinel modules</strong><br>
+          FedRAMP · ISO 27001 · NIST CSF<br>
+          SBIR / STTR contract support<br>
+          White-label available
+        </div>
         <a href="contact.html" class="btn btn-white btn-full">Contact sales →</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec sec-gray">
+<!-- FREE TRIAL EXPLAINER -->
+<section class="sec">
   <div class="wrap">
-    <div class="sh rv"><div class="sh-tag">FAQ</div><h2 class="sh-title">Frequently asked questions.</h2><p class="sh-sub">Everything you need to know about pricing, billing, and getting started with Sentinel Analytics AI.</p></div>
-    <div class="faq-list rv">
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I start with one module and add more later?<span class="faq-icon">+</span></button><div class="faq-a">Yes. Every module is independently deployable. Start with ThreatSentinel (available now as a free trial), then add NetGuard, VisionSentinel, or any other module as your security needs expand. Volume discounts apply when bundling 3 or more modules.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is the free trial really free — no credit card?<span class="faq-icon">+</span></button><div class="faq-a">Yes. The 14-day free trial of ThreatSentinel requires no credit card. You get full access to the live dashboard, ML threat detection, and community support. At the end of the trial you can upgrade or continue exploring without any charge.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Does the platform handle HIPAA-compliant data?<span class="faq-icon">+</span></button><div class="faq-a">Yes. All data flows are encrypted in transit (TLS 1.3) and at rest (AES-256). PHI and PII are automatically detected and masked in logs. On the Professional plan and above, every finding is mapped to HIPAA and HITRUST controls — and an audit evidence pack is generated automatically.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What does annual billing save?<span class="faq-icon">+</span></button><div class="faq-a">Annual billing saves 20% across all plans. The Starter plan drops from $299/mo to $239/mo. The Professional plan drops from $799/mo to $639/mo. Enterprise pricing is always annual and negotiated directly based on scope and module count.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do you support government and SBIR contracts?<span class="faq-icon">+</span></button><div class="faq-a">Yes. PAMSentinel and ThreatSentinel are SBIR-eligible (DoD, NOAA, DHS). We can structure contracts to accommodate government procurement processes including SAM.gov registration, CAGE codes, and BAA/SBIR Phase I/II proposals. Contact us directly for a government contract discussion.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is on-premises deployment available?<span class="faq-icon">+</span></button><div class="faq-a">On-premises and private cloud deployment is available on the Enterprise plan. This is particularly relevant for government agencies and financial institutions with strict data residency requirements. Contact our sales team for architecture details and deployment timelines.</div></div>
+    <div class="sh rv" style="text-align:center;max-width:680px;margin:0 auto 48px">
+      <div class="sh-tag" style="justify-content:center">Free trials</div>
+      <h2 class="sh-title">Try before you commit.<br>Every module, every time.</h2>
+      <p class="sh-sub" style="margin:0 auto">Every Sentinel module launches with a 14-day free trial — no credit card required. As we build and release each module, you'll be able to trial it independently. Only pay for what works for your organisation.</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card rv d1">
+        <div class="prob-lbl">14 days free per module</div>
+        <div class="prob-desc">Each module has its own 14-day trial. You can trial ThreatSentinel today, and when NetGuard launches, trial that independently — even if you're already a paying ThreatSentinel customer.</div>
+      </div>
+      <div class="prob-card rv d2">
+        <div class="prob-lbl">No credit card required</div>
+        <div class="prob-desc">Start any trial without a payment method. At the end of 14 days, choose to subscribe or walk away — no automatic charge, no hidden fees, no lock-in period.</div>
+      </div>
+      <div class="prob-card rv d3">
+        <div class="prob-lbl">Upgrade as you grow</div>
+        <div class="prob-desc">Start with one module. Add more as your needs expand. Bundle discounts apply automatically when you combine modules — and unused trial days carry forward.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="cta"><div class="cta-in"><h2 class="cta-h">Not sure which plan<br><span>is right for you?</span></h2><div class="cta-act"><a href="contact.html" class="btn btn-navy-white">Talk to our team <span class="arr">→</span></a><a href="signup.html" class="btn btn-navy-ghost">Try for free first</a></div></div></div>
+<!-- FAQ -->
+<section class="sec sec-gray">
+  <div class="wrap">
+    <div class="sh rv"><div class="sh-tag">FAQ</div><h2 class="sh-title">Frequently asked questions.</h2></div>
+    <div class="faq-list rv">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I trial one module while already paying for another?<span class="faq-icon">+</span></button><div class="faq-a">Yes. Each module has its own independent trial. If you're subscribed to ThreatSentinel and NetGuard launches, you can start a fresh 14-day trial of NetGuard without affecting your existing subscription.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I choose which 3 modules I get in the Professional bundle?<span class="faq-icon">+</span></button><div class="faq-a">Yes. The Professional bundle price ($799/mo) applies to any 3 modules. Contact us to configure your specific combination — we'll set up the right Stripe subscription for your chosen modules.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if I need 4, 5, or 6 modules?<span class="faq-icon">+</span></button><div class="faq-a">Custom bundle pricing applies. Contact us directly and we'll quote you based on which specific modules you need. Volume discounts increase with each additional module.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">When will the other modules be available?<span class="faq-icon">+</span></button><div class="faq-a">We are building and launching modules sequentially. Each one is peer-reviewed and production-validated before release. Join the waitlist for any module and we'll notify you the moment the free trial goes live.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Does annual billing apply to individual modules?<span class="faq-icon">+</span></button><div class="faq-a">Yes. Annual billing saves 20% on any plan — individual modules or bundles. A $299/mo module billed annually costs $239/mo. Contact us for annual pricing on custom bundles.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do you support government and SBIR contracts?<span class="faq-icon">+</span></button><div class="faq-a">Yes. PAMSentinel and ThreatSentinel are SBIR-eligible (DoD, NOAA, DHS). We can structure contracts for government procurement including SAM.gov registration, CAGE codes, and BAA/SBIR Phase I/II proposals.</div></div>
+    </div>
+  </div>
+</section>
 
-<div class="nl"><div class="nl-in"><div><div class="nl-h">Stay ahead of the threat.</div><p class="nl-sub">Monthly briefings on cybersecurity research, platform updates, and NJ/NY regulatory changes.</p></div><form class="nl-form" onsubmit="subFrm(event)"><input type="email" placeholder="Your work email address" required><button type="submit">Subscribe →</button></form></div></div>
-<footer><div class="foot-main"><div><div class="foot-logo"><div class="foot-badge"><svg viewBox="0 0 18 18" width="16" height="16" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div><div class="foot-wm">Sentinel<span>Analytics</span>.AI</div></div><p class="foot-tag">Autonomous detection, prediction, and optimization systems for regulated industries.</p><div class="foot-hq">Hamilton, NJ &amp; New York, NY<br><span>Dr. Oluwaseyi Babalola</span> · Founder &amp; CEO<br>contact@sentinelanalyticsai.com</div></div><div><div class="foot-col-t">Platform</div><ul class="foot-links"><li><a href="platform.html" class="live">ThreatSentinel ● Live</a></li><li><a href="platform.html">NetGuard</a></li><li><a href="platform.html">VisionSentinel</a></li><li><a href="platform.html">PAMSentinel</a></li></ul></div><div><div class="foot-col-t">Solutions</div><ul class="foot-links"><li><a href="markets.html">Healthcare</a></li><li><a href="markets.html">Financial Services</a></li><li><a href="markets.html">Government</a></li><li><a href="integrations.html">Integrations</a></li></ul></div><div><div class="foot-col-t">Research</div><ul class="foot-links"><li><a href="research.html">Research Overview</a></li><li><a href="https://babalolaseyip.github.io/babalola-portfolio/publications.html" target="_blank">Publications</a></li></ul></div><div><div class="foot-col-t">Company</div><ul class="foot-links"><li><a href="https://babalolaseyip.github.io/babalola-portfolio/" target="_blank">About Dr. Babalola</a></li><li><a href="contact.html">Contact</a></li><li><a href="https://calendly.com/babalolaseyip/threatsentinel-platform-demo" target="_blank">Book a Demo</a></li></ul></div></div><div class="foot-bot"><div class="foot-copy">© 2025 Sentinel Analytics AI LLC. All rights reserved.</div><div class="foot-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div><div class="foot-status"><span class="sdot"></span>All systems operational</div></div></footer>
+<div class="cta"><div class="cta-in"><h2 class="cta-h">Not sure which module<br><span>fits your organisation?</span></h2><div class="cta-act"><a href="https://calendly.com/babalolaseyip/threatsentinel-platform-demo" target="_blank" class="btn btn-navy-white">Book a 20-min demo <span class="arr">→</span></a><a href="signup.html" class="btn btn-navy-ghost">Start free trial</a></div></div></div>
+
+<div class="nl"><div class="nl-in"><div><div class="nl-h">Be first to know when each module launches.</div><p class="nl-sub">Get notified when new Sentinel modules go live — with early access to free trials.</p></div><form class="nl-form" onsubmit="subFrm(event)"><input type="email" placeholder="Your work email address" required><button type="submit">Notify me →</button></form></div></div>
+<footer><div class="foot-main"><div><div class="foot-logo"><div class="foot-badge"><svg viewBox="0 0 18 18" width="16" height="16" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div><div class="foot-wm">Sentinel<span>Analytics</span>.AI</div></div><p class="foot-tag">Autonomous detection, prediction, and optimization systems for regulated industries.</p><div class="foot-hq">Hamilton, NJ &amp; New York, NY<br><span>Dr. Oluwaseyi Babalola</span> · Founder &amp; CEO<br>contact@sentinelanalyticsai.com</div></div><div><div class="foot-col-t">Modules</div><ul class="foot-links"><li><a href="pricing.html" class="live">ThreatSentinel ● $299/mo</a></li><li><a href="pricing.html">NetGuard · Coming soon</a></li><li><a href="pricing.html">VisionSentinel · Coming soon</a></li><li><a href="pricing.html">SignalSentinel · Coming soon</a></li><li><a href="pricing.html">LocateSentinel · Coming soon</a></li><li><a href="pricing.html">OptimaSentinel · Coming soon</a></li><li><a href="pricing.html">PAMSentinel · SBIR eligible</a></li></ul></div><div><div class="foot-col-t">Solutions</div><ul class="foot-links"><li><a href="markets.html">Healthcare</a></li><li><a href="markets.html">Financial Services</a></li><li><a href="markets.html">Government</a></li><li><a href="integrations.html">Integrations</a></li></ul></div><div><div class="foot-col-t">Research</div><ul class="foot-links"><li><a href="research.html">Research Overview</a></li><li><a href="https://babalolaseyip.github.io/babalola-portfolio/publications.html" target="_blank">Publications</a></li></ul></div><div><div class="foot-col-t">Company</div><ul class="foot-links"><li><a href="https://babalolaseyip.github.io/babalola-portfolio/" target="_blank">About Dr. Babalola</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html">Book a Demo</a></li><li><a href="contact.html">SBIR Contracts</a></li></ul></div></div><div class="foot-bot"><div class="foot-copy">© 2025 Sentinel Analytics AI LLC. All rights reserved.</div><div class="foot-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div><div class="foot-status"><span class="sdot"></span>All systems operational</div></div></footer>
 <script>
 window.addEventListener("scroll",()=>{document.getElementById("nav").classList.toggle("scrolled",window.scrollY>30);},{passive:true});
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");ro.unobserve(x.target);}});},{threshold:.1});
 document.querySelectorAll(".rv,.rvl,.rvr").forEach(el=>ro.observe(el));
 function toggleFaq(btn){const item=btn.parentElement;item.classList.toggle("open");}
-function subFrm(e){e.preventDefault();const b=e.target.querySelector("button");b.textContent="Subscribed ✓";b.style.background="#10B981";setTimeout(()=>{b.textContent="Subscribe →";b.style.background="";e.target.reset()},3000);}
+function subFrm(e){e.preventDefault();const b=e.target.querySelector("button");b.textContent="Subscribed ✓";b.style.background="#10B981";setTimeout(()=>{b.textContent="Notify me →";b.style.background="";e.target.reset()},3000);}
 </script>
 </body></html>
