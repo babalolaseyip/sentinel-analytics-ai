@@ -444,7 +444,8 @@ body{font-family:var(--sans);background:var(--surf);color:var(--ink);display:fle
 <script>
 const SUPABASE_URL = 'https://esztisxqhdhkyaoaxfxl.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_Nfl2HFR0yf1fFaHjDf_JFw_WbCvUj3X';
-const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const API_BASE='https://web-production-dfaec.up.railway.app';
 
 // Auth guard
 (async()=>{
