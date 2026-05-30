@@ -156,7 +156,10 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // ── CHECK IF ALREADY LOGGED IN ──
 (async()=>{
   const {data:{session}}=await sb.auth.getSession();
-  if(session) window.location.href='dashboard.html';
+  if(session){
+    const pending = localStorage.getItem('sentinel_pending_upgrade');
+    window.location.href = pending ? 'dashboard.html' + pending : 'dashboard.html';
+  }
 })();
 
 // ── EMAIL/PASSWORD LOGIN ──
@@ -198,14 +201,24 @@ async function handleLogin(e){
     box.classList.add('show');
     return;
   }
-  window.location.href='dashboard.html';
+  // Check for pending Stripe upgrade params saved before login
+  const pending = localStorage.getItem('sentinel_pending_upgrade');
+  if(pending) {
+    window.location.href = 'dashboard.html' + pending;
+  } else {
+    window.location.href = 'dashboard.html';
+  }
 }
 
 // ── GOOGLE OAUTH ──
 async function handleGoogleLogin(){
+  const pending = localStorage.getItem('sentinel_pending_upgrade');
+  const redirectTo = pending
+    ? window.location.origin + '/sentinel-analytics-ai/dashboard.html' + pending
+    : window.location.origin + '/sentinel-analytics-ai/dashboard.html';
   await sb.auth.signInWithOAuth({
     provider:'google',
-    options:{redirectTo:window.location.origin+'/dashboard.html'}
+    options:{redirectTo}
   });
 }
 </script>

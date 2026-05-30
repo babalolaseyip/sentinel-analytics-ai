@@ -511,7 +511,17 @@ function resolveModules(metadata) {
 // ── AUTH + MODULE INIT ──
 (async()=>{
   const {data:{session}}=await sb.auth.getSession();
-  if(!session){window.location.href='login.html';return;}
+
+  if(!session){
+    // ── CRITICAL: save Stripe payment params before redirecting to login ──
+    // Otherwise the upgrade params are lost when the user logs in
+    const qs = window.location.search;
+    if(qs.includes('upgraded=1')) {
+      localStorage.setItem('sentinel_pending_upgrade', qs);
+    }
+    window.location.href='login.html';
+    return;
+  }
 
   const user=session.user;
   const name=user.user_metadata?.full_name||user.email.split('@')[0];
@@ -519,35 +529,55 @@ function resolveModules(metadata) {
   document.getElementById('user-name').textContent=name.split(' ')[0];
   document.getElementById('user-avatar').textContent=initials;
 
-  const params = new URLSearchParams(window.location.search);
-  const newModule = params.get('module');   // e.g. ?module=NetGuard
-  const newBundle = params.get('plan');     // e.g. ?plan=professional
+  // ── Check URL params (direct Stripe redirect) OR localStorage (post-login) ──
+  let rawParams = window.location.search;
+  const pendingUpgrade = localStorage.getItem('sentinel_pending_upgrade');
+  if(!rawParams.includes('upgraded=1') && pendingUpgrade) {
+    rawParams = pendingUpgrade;
+    localStorage.removeItem('sentinel_pending_upgrade');
+  }
+
+  const params   = new URLSearchParams(rawParams);
+  const newModule = params.get('module');  // individual: ?upgraded=1&module=NetGuard
+  const newBundle = params.get('plan');    // bundle:     ?upgraded=1&plan=professional
   const isUpgrade = params.get('upgraded') === '1';
 
   let metadata = { ...user.user_metadata };
 
   if(isUpgrade) {
     if(newBundle && BUNDLES[newBundle]) {
-      // Bundle purchased — set plan, clear individual modules
-      metadata.plan = newBundle;
+      // ── Bundle purchased ──
+      metadata.plan    = newBundle;
       metadata.modules = BUNDLES[newBundle].moduleList;
+
     } else if(newModule && ALL_MODULES.includes(newModule)) {
-      // Individual module purchased — ADD to existing modules
-      const existing = metadata.modules || ['ThreatSentinel'];
+      // ── Individual module purchased — ADD to existing, don't replace ──
+      const existing = Array.isArray(metadata.modules) ? metadata.modules : ['ThreatSentinel'];
       if(!existing.includes(newModule)) existing.push(newModule);
       metadata.modules = existing;
-      metadata.plan = 'modules'; // signals individual module billing
+      metadata.plan    = 'modules';
+
+    } else if(newBundle === 'starter') {
+      // ── Starter plan (ThreatSentinel subscription) ──
+      metadata.plan    = 'starter';
+      metadata.modules = ['ThreatSentinel'];
     }
-    // Save updated metadata to Supabase
+
+    // Persist to Supabase
     await sb.auth.updateUser({ data: metadata });
+
+    // Clean URL
     window.history.replaceState({}, '', 'dashboard.html');
+
+    // Show success banner
     showUpgradeBanner(newModule || newBundle, metadata);
   }
 
-  // Apply modules to UI
+  // Apply modules to UI from current metadata
   const resolved = resolveModules(metadata);
   applyModules(resolved.modules, resolved.label);
 
+  // Show signup welcome banner
   if(params.get('welcome')==='1') {
     document.getElementById('welcome-banner').classList.add('show');
   }
