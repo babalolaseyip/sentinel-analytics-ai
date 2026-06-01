@@ -23,6 +23,7 @@
 /* ── PRICING TIERS INSIDE MODULE ── */
 .tier-grid{display:grid;gap:1px;background:var(--bdr)}
 .tier-grid.cols3{grid-template-columns:repeat(3,1fr)}
+.tier-grid.cols4{grid-template-columns:repeat(4,1fr)}
 .tier-grid.cols2{grid-template-columns:repeat(2,1fr)}
 .tier{background:#fff;padding:28px 24px;position:relative}
 .tier-pop{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;padding:3px 14px;border-radius:0 0 6px 6px}
@@ -60,7 +61,8 @@
 
 /* FAQ */
 .faq-list{max-width:800px}.faq-item{border-bottom:1px solid var(--bdr)}.faq-q{width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--sans);font-size:16px;font-weight:600;color:var(--ink);gap:16px;transition:color .2s}.faq-q:hover{color:var(--blue)}.faq-icon{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bdr2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:var(--mute);transition:all .25s}.faq-item.open .faq-icon{background:var(--blue);border-color:var(--blue);color:#fff;transform:rotate(45deg)}.faq-a{font-size:15px;font-weight:400;line-height:1.75;color:var(--mute);padding-bottom:22px;display:none}.faq-item.open .faq-a{display:block}
-@media(max-width:768px){.tier-grid.cols3,.tier-grid.cols2{grid-template-columns:1fr}.custom-card{padding:40px 24px}.cc-act{width:100%}}
+@media(max-width:1024px){.tier-grid.cols4{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.tier-grid.cols4,.tier-grid.cols3,.tier-grid.cols2{grid-template-columns:1fr}.custom-card{padding:40px 24px}.cc-act{width:100%}}
 </style>
 <style>
 /* Mobile Nav */
@@ -123,7 +125,7 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3" style="position:relative">
+        <div class="tier-grid cols4" style="position:relative">
           
           <div class="tier">
             <div class="tier-label">Free Trial</div>
@@ -169,7 +171,16 @@
               <li>Priority support &mdash; 4hr SLA</li>
               <li>Database integration</li>
               <li>On-premises option</li></ul>
+            <a href="https://buy.stripe.com/test_5kQaEY5KQgsZewodwtew801" target="_blank" class="tier-btn blue">Get started &rarr;</a>
+            <div class="tier-trial">&#10003; Start with a free trial first          <div class="tier">
+            <div class="tier-label">Enterprise</div>
+            <div class="tier-price" style="font-size:28px;letter-spacing:-.02em">Custom</div>
+            <div class="tier-who">Large organisations &amp; government</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Professional</li><li>Unlimited user seats</li><li>On-premises deployment</li><li>FedRAMP &middot; ISO 27001 &middot; NIST CSF</li><li>Dedicated Customer Success Manager</li><li>99.9% uptime SLA</li><li>SBIR / STTR contract support</li><li>White-label available</li></ul>
             <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
+        </div>
           </div>
         </div>
       </div>
@@ -189,7 +200,7 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3" style="position:relative">
+        <div class="tier-grid cols4" style="position:relative">
           <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
           <div class="tier">
             <div class="tier-label">Free Trial</div>
@@ -232,8 +243,16 @@
               <li>SOC 2 mapping</li>
               <li>25 user seats</li>
               <li>API access</li></ul>
+            <a href="contact.html" class="tier-btn outline">Join waitlist &rarr;</a>
+                    <div class="tier">
+            <div class="tier-label">Enterprise</div>
+            <div class="tier-price" style="font-size:28px;letter-spacing:-.02em">Custom</div>
+            <div class="tier-who">Large organisations &amp; government</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Professional</li><li>Unlimited user seats</li><li>On-premises deployment</li><li>Custom NIDS rule development</li><li>SOC 2 Type II evidence pack</li><li>Dedicated CSM &amp; onboarding</li><li>99.9% uptime SLA</li><li>White-label available</li></ul>
             <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -252,7 +271,7 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3" style="position:relative">
+        <div class="tier-grid cols4" style="position:relative">
           <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
           <div class="tier">
             <div class="tier-label">Free Trial</div>
@@ -294,8 +313,16 @@
               <li>30-day retention</li>
               <li>HIPAA / FedRAMP reporting</li>
               <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Join waitlist &rarr;</a>
+                    <div class="tier">
+            <div class="tier-label">Enterprise</div>
+            <div class="tier-price" style="font-size:28px;letter-spacing:-.02em">Custom</div>
+            <div class="tier-who">Large organisations &amp; government</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Professional</li><li>Unlimited cameras &amp; sites</li><li>On-premises / air-gapped option</li><li>Custom AI model training</li><li>Physical security compliance pack</li><li>Dedicated CSM</li><li>99.9% uptime SLA</li><li>White-label available</li></ul>
             <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -314,7 +341,7 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3" style="position:relative">
+        <div class="tier-grid cols4" style="position:relative">
           <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
           <div class="tier">
             <div class="tier-label">Free Trial</div>
@@ -354,8 +381,16 @@
               <li>Medical device support</li>
               <li>Low-latency processing</li>
               <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Join waitlist &rarr;</a>
+                    <div class="tier">
+            <div class="tier-label">Enterprise</div>
+            <div class="tier-price" style="font-size:28px;letter-spacing:-.02em">Custom</div>
+            <div class="tier-who">Large organisations &amp; government</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Professional</li><li>Unlimited data streams</li><li>Custom model development</li><li>Medical device compliance</li><li>Industrial IoT integration</li><li>Dedicated CSM</li><li>99.9% uptime SLA</li><li>White-label available</li></ul>
             <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -374,7 +409,7 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3" style="position:relative">
+        <div class="tier-grid cols4" style="position:relative">
           <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
           <div class="tier">
             <div class="tier-label">Free Trial</div>
@@ -415,8 +450,16 @@
               <li>EHR / WMS integration</li>
               <li>Compliance tracking</li>
               <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Join waitlist &rarr;</a>
+                    <div class="tier">
+            <div class="tier-label">Enterprise</div>
+            <div class="tier-price" style="font-size:28px;letter-spacing:-.02em">Custom</div>
+            <div class="tier-who">Large organisations &amp; government</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Professional</li><li>Unlimited assets &amp; facilities</li><li>On-premises deployment</li><li>Custom zone &amp; map integration</li><li>Healthcare asset compliance</li><li>Dedicated CSM</li><li>99.9% uptime SLA</li><li>White-label available</li></ul>
             <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -435,7 +478,7 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3" style="position:relative">
+        <div class="tier-grid cols4" style="position:relative">
           <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
           <div class="tier">
             <div class="tier-label">Free Trial</div>
@@ -476,8 +519,16 @@
               <li>Multi-department</li>
               <li>Ground station allocation</li>
               <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Join waitlist &rarr;</a>
+                    <div class="tier">
+            <div class="tier-label">Enterprise</div>
+            <div class="tier-price" style="font-size:28px;letter-spacing:-.02em">Custom</div>
+            <div class="tier-who">Large organisations &amp; government</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Professional</li><li>Unlimited resources &amp; departments</li><li>Custom constraint modelling</li><li>Government procurement support</li><li>Audit trail &amp; compliance</li><li>Dedicated CSM</li><li>99.9% uptime SLA</li><li>White-label available</li></ul>
             <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -496,7 +547,7 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3" style="position:relative">
+        <div class="tier-grid cols4" style="position:relative">
           <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">SBIR eligible · Contact for pricing</div><a href="mailto:contact@sentinelanalyticsai.com?subject=PAMSentinel Briefing" class="btn btn-outline">Request briefing &rarr;</a></div></div>
           <div class="tier">
             <div class="tier-label">Free Trial</div>
@@ -521,8 +572,16 @@
             <div class="tier-who">NOAA, EPA, DoD &amp; offshore energy companies</div>
             <div class="tier-div"></div>
             <ul class="tier-feats"><li>Everything in Starter</li><li>Unlimited monitoring sites</li><li>SBIR-compliant reporting</li><li>FedRAMP / DoD documentation</li><li>Multi-species detection</li><li>Government contract support</li></ul>
+            <a href="contact.html" class="tier-btn outline">Join waitlist &rarr;</a>
+                    <div class="tier">
+            <div class="tier-label">Enterprise</div>
+            <div class="tier-price" style="font-size:28px;letter-spacing:-.02em">Custom</div>
+            <div class="tier-who">Large organisations &amp; government</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Professional</li><li>Unlimited monitoring sites</li><li>SBIR Phase I/II documentation</li><li>DoD &middot; NOAA &middot; DHS compliance pack</li><li>Custom species model training</li><li>Dedicated CSM</li><li>SAM.gov procurement support</li><li>White-label available</li></ul>
             <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
           </div>
+        </div>
         </div>
       </div>
           </div>
