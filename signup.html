@@ -194,10 +194,31 @@ const SUPABASE_URL = 'https://esztisxqhdhkyaoaxfxl.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_Nfl2HFR0yf1fFaHjDf_JFw_WbCvUj3X';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// Detect module from URL e.g. signup.html?module=ThreatSentinel
+const urlParams = new URLSearchParams(window.location.search);
+const selectedModule = urlParams.get('module') || 'ThreatSentinel';
+
 (async()=>{
   const {data:{session}}=await sb.auth.getSession();
-  if(session) window.location.href='dashboard.html';
+  if(session){
+    const pending = localStorage.getItem('sentinel_pending_upgrade');
+    window.location.href = pending ? 'dashboard.html' + pending : 'dashboard.html';
+  }
 })();
+
+// Update page heading to reflect selected module
+document.addEventListener('DOMContentLoaded', function() {
+  const titleEl = document.querySelector('.auth-title');
+  const subEl   = document.querySelector('.auth-sub');
+  const tagEl   = document.querySelector('.lp-tag');
+  const titleH  = document.querySelector('.lp-title');
+  if(selectedModule && selectedModule !== 'ThreatSentinel') {
+    if(tagEl) tagEl.textContent = selectedModule + ' — Free Trial';
+    if(titleH) titleH.textContent = 'Join the ' + selectedModule + ' waitlist.';
+    if(titleEl) titleEl.textContent = 'Start your free trial.';
+    if(subEl) subEl.textContent = '14-day free trial · ' + selectedModule + ' · No credit card required';
+  }
+});
 
 async function handleSignup(e){
   e.preventDefault();
@@ -232,7 +253,16 @@ async function handleSignup(e){
   const {data,error}=await sb.auth.signUp({
     email,password,
     options:{
-      data:{full_name:`${fname} ${lname}`,company,role,plan:'trial'},
+      data:{
+          full_name:`${fname} ${lname}`,
+          company,
+          role,
+          plan:'trial',
+          module: selectedModule,
+          modules: [selectedModule],
+          org_size: document.getElementById('org-size')?.value || '',
+          cloud: document.getElementById('cloud')?.value || '',
+        },
       emailRedirectTo:window.location.origin+'/dashboard.html'
     }
   });
@@ -245,13 +275,17 @@ async function handleSignup(e){
   }
 
   // Redirect to dashboard (email confirmation optional in Supabase settings)
-  window.location.href='dashboard.html?welcome=1';
+  // Redirect to dashboard with module context
+  const dashUrl = 'dashboard.html?welcome=1&module=' + encodeURIComponent(selectedModule);
+  window.location.href = dashUrl;
 }
 
 async function handleGoogleSignup(){
+  const redirectTo = window.location.origin +
+    '/sentinel-analytics-ai/dashboard.html?upgraded=1&module=' + encodeURIComponent(selectedModule);
   await sb.auth.signInWithOAuth({
     provider:'google',
-    options:{redirectTo:window.location.origin+'/dashboard.html'}
+    options:{ redirectTo }
   });
 }
 
@@ -259,6 +293,32 @@ function showAlert(msg){
   const box=document.getElementById('alert-box');
   box.textContent=msg;box.classList.add('show');
 }
+
+function toggleMobileNav(){
+  var nav=document.getElementById("mobile-nav");
+  var btn=document.getElementById("hamburger");
+  if(!nav||!btn)return;
+  nav.classList.toggle("open");
+  btn.classList.toggle("open");
+  document.body.style.overflow=nav.classList.contains("open")?"hidden":"";
+}
+document.addEventListener("click",function(e){
+  var nav=document.getElementById("mobile-nav");
+  var btn=document.getElementById("hamburger");
+  if(nav&&btn&&nav.classList.contains("open")&&!nav.contains(e.target)&&!btn.contains(e.target)){
+    nav.classList.remove("open");btn.classList.remove("open");
+    document.body.style.overflow="";
+  }
+});
+window.addEventListener("resize",function(){
+  if(window.innerWidth>768){
+    var nav=document.getElementById("mobile-nav");
+    var btn=document.getElementById("hamburger");
+    if(nav)nav.classList.remove("open");
+    if(btn)btn.classList.remove("open");
+    document.body.style.overflow="";
+  }
+});
 </script>
 </body>
 </html>

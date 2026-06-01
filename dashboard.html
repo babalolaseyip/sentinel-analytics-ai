@@ -166,6 +166,35 @@ body{font-family:var(--sans);background:var(--surf);color:var(--ink);display:fle
 .wb-close{color:rgba(255,255,255,.4);cursor:pointer;font-size:20px;line-height:1;border:none;background:none;transition:color .15s}
 .wb-close:hover{color:#fff}
 </style>
+
+<style>
+/* ── ONBOARDING MODAL ── */
+.ob-overlay{position:fixed;inset:0;background:rgba(6,13,30,.7);z-index:800;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
+.ob-overlay.show{opacity:1;pointer-events:all}
+.ob-modal{background:#fff;border-radius:var(--r16);padding:40px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform .3s}
+.ob-overlay.show .ob-modal{transform:translateY(0)}
+.ob-step{display:none}.ob-step.on{display:block}
+.ob-tag{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.ob-title{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:8px}
+.ob-sub{font-size:14px;color:var(--mute);line-height:1.7;margin-bottom:24px}
+.ob-progress{display:flex;gap:6px;margin-bottom:28px}
+.ob-dot{height:4px;flex:1;border-radius:2px;background:var(--bdr)}
+.ob-dot.done{background:var(--blue)}
+.ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ob-card{border:1.5px solid var(--bdr);border-radius:var(--r12);padding:14px 16px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:10px}
+.ob-card:hover{border-color:var(--blue-bdr);background:var(--blue-lt)}
+.ob-card.sel{border-color:var(--blue);background:var(--blue-lt);color:var(--blue)}
+.ob-card-icon{font-size:20px;flex-shrink:0}
+.ob-card-label{font-size:13px;font-weight:600;color:var(--ink)}
+.ob-card.sel .ob-card-label{color:var(--blue)}
+.ob-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+.ob-skip{font-size:13px;color:var(--mute);background:none;border:none;cursor:pointer;padding:10px}
+.ob-skip:hover{color:var(--ink)}
+.ob-next{font-size:14px;font-weight:600;background:var(--blue);color:#fff;border:none;padding:11px 24px;border-radius:var(--r8);cursor:pointer;transition:background .18s}
+.ob-next:hover{background:var(--blue-h)}
+.ob-input{width:100%;background:var(--surf);border:1px solid var(--bdr);color:var(--ink);font-family:var(--sans);font-size:14px;padding:11px 16px;border-radius:var(--r8);outline:none;transition:border-color .2s;margin-bottom:12px}
+.ob-input:focus{border-color:var(--blue)}
+</style>
 </head>
 <body>
 
@@ -652,6 +681,175 @@ setTimeout(()=>{
     bar.style.width=bar.dataset.w;
   });
 },400);
+
+function toggleMobileNav(){
+  var nav=document.getElementById("mobile-nav");
+  var btn=document.getElementById("hamburger");
+  if(!nav||!btn)return;
+  nav.classList.toggle("open");
+  btn.classList.toggle("open");
+  document.body.style.overflow=nav.classList.contains("open")?"hidden":"";
+}
+document.addEventListener("click",function(e){
+  var nav=document.getElementById("mobile-nav");
+  var btn=document.getElementById("hamburger");
+  if(nav&&btn&&nav.classList.contains("open")&&!nav.contains(e.target)&&!btn.contains(e.target)){
+    nav.classList.remove("open");btn.classList.remove("open");
+    document.body.style.overflow="";
+  }
+});
+window.addEventListener("resize",function(){
+  if(window.innerWidth>768){
+    var nav=document.getElementById("mobile-nav");
+    var btn=document.getElementById("hamburger");
+    if(nav)nav.classList.remove("open");
+    if(btn)btn.classList.remove("open");
+    document.body.style.overflow="";
+  }
+});
+
+// ── ONBOARDING ──
+var obSelections = { cloud:[], siem:[], cicd:[], compliance:[] };
+var obCurrentStep = 1;
+
+function showOnboarding(moduleName, moduleDesc) {
+  document.getElementById('ob-module-name').textContent = moduleName || 'ThreatSentinel';
+  document.getElementById('ob-module-desc').textContent = moduleDesc || 'Autonomous network threat detection';
+  document.getElementById('ob-overlay').classList.add('show');
+}
+
+function obNext(step) {
+  document.getElementById('ob-s'+obCurrentStep).classList.remove('on');
+  document.getElementById('ob-d'+obCurrentStep).classList.add('done');
+  obCurrentStep = step;
+  var s = document.getElementById('ob-s'+step);
+  if(s) s.classList.add('on');
+  if(step <= 3) document.getElementById('ob-d'+step).classList.add('done');
+}
+
+function toggleCard(el, category, value) {
+  el.classList.toggle('sel');
+  var arr = obSelections[category];
+  var idx = arr.indexOf(value);
+  if(idx > -1) arr.splice(idx,1); else arr.push(value);
+}
+
+async function finishOnboarding() {
+  // Save integration preferences to Supabase
+  try {
+    var {data:{session}} = await sb.auth.getSession();
+    if(session) {
+      await sb.auth.updateUser({
+        data: {
+          onboarded: true,
+          integrations: obSelections,
+          onboarded_at: new Date().toISOString()
+        }
+      });
+    }
+  } catch(e) { console.warn('Could not save onboarding:', e); }
+  document.getElementById('ob-overlay').classList.remove('show');
+}
+
+function skipOnboarding() {
+  document.getElementById('ob-overlay').classList.remove('show');
+}
+
+// Show onboarding for new users (welcome=1) or first login
+const _params = new URLSearchParams(window.location.search);
+if(_params.get('welcome') === '1') {
+  const _module = _params.get('module') || 'ThreatSentinel';
+  const _moduleDescs = {
+    'ThreatSentinel':'Autonomous network threat detection',
+    'NetGuard':'Network intrusion detection',
+    'VisionSentinel':'AI video surveillance detection',
+    'SignalSentinel':'Signal decoding & pattern recognition',
+    'LocateSentinel':'Wi-Fi asset localization',
+    'OptimaSentinel':'Scheduling & optimization engine',
+    'PAMSentinel':'Passive acoustic monitoring'
+  };
+  setTimeout(function(){ showOnboarding(_module, _moduleDescs[_module] || ''); }, 800);
+}
+
 </script>
+
+<!-- ONBOARDING MODAL -->
+<div class="ob-overlay" id="ob-overlay">
+  <div class="ob-modal">
+    <!-- Progress dots -->
+    <div class="ob-progress">
+      <div class="ob-dot done" id="ob-d1"></div>
+      <div class="ob-dot" id="ob-d2"></div>
+      <div class="ob-dot" id="ob-d3"></div>
+    </div>
+
+    <!-- Step 1: Welcome + module confirmation -->
+    <div class="ob-step on" id="ob-s1">
+      <div class="ob-tag">Welcome to Sentinel Analytics AI</div>
+      <div class="ob-title">Let's set up your workspace.</div>
+      <div class="ob-sub">This takes 2 minutes. We'll connect your organisation's infrastructure so your module starts working immediately — no manual configuration needed.</div>
+      <div style="background:var(--blue-lt);border:1px solid var(--blue-bdr);border-radius:var(--r12);padding:16px 20px;margin-bottom:24px">
+        <div style="font-size:12px;font-weight:500;color:var(--blue);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Your active module</div>
+        <div style="font-size:18px;font-weight:800;color:var(--ink)" id="ob-module-name">ThreatSentinel</div>
+        <div style="font-size:13px;color:var(--mute)" id="ob-module-desc">Autonomous network threat detection</div>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-skip" onclick="skipOnboarding()">Skip for now</button>
+        <button class="ob-next" onclick="obNext(2)">Get started &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Connect infrastructure -->
+    <div class="ob-step" id="ob-s2">
+      <div class="ob-tag">Step 1 of 2 &middot; Infrastructure</div>
+      <div class="ob-title">Connect your organisation's stack.</div>
+      <div class="ob-sub">Select what your organisation uses. We'll configure the right connectors automatically.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:10px">Cloud &amp; infrastructure</div>
+      <div class="ob-grid" id="ob-cloud-grid">
+        <div class="ob-card" onclick="toggleCard(this,'cloud','aws')"><span class="ob-card-icon">☁️</span><span class="ob-card-label">Amazon AWS</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'cloud','azure')"><span class="ob-card-icon">🔷</span><span class="ob-card-label">Microsoft Azure</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'cloud','gcp')"><span class="ob-card-icon">🌐</span><span class="ob-card-label">Google Cloud</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'cloud','on-prem')"><span class="ob-card-icon">🖥️</span><span class="ob-card-label">On-premises</span></div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:10px;margin-top:8px">SIEM &amp; security tools</div>
+      <div class="ob-grid">
+        <div class="ob-card" onclick="toggleCard(this,'siem','splunk')"><span class="ob-card-icon">📊</span><span class="ob-card-label">Splunk</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'siem','elastic')"><span class="ob-card-icon">🔍</span><span class="ob-card-label">Elastic SIEM</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'siem','pagerduty')"><span class="ob-card-icon">🚨</span><span class="ob-card-label">PagerDuty</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'siem','none')"><span class="ob-card-icon">➕</span><span class="ob-card-label">None yet</span></div>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-skip" onclick="obNext(1)">&larr; Back</button>
+        <button class="ob-next" onclick="obNext(3)">Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 3: CI/CD + Compliance -->
+    <div class="ob-step" id="ob-s3">
+      <div class="ob-tag">Step 2 of 2 &middot; DevOps &amp; Compliance</div>
+      <div class="ob-title">Almost done.</div>
+      <div class="ob-sub">Tell us about your development workflow and compliance requirements so we can pre-configure the right integrations.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:10px">Source control &amp; CI/CD</div>
+      <div class="ob-grid">
+        <div class="ob-card" onclick="toggleCard(this,'cicd','github')"><span class="ob-card-icon">🐙</span><span class="ob-card-label">GitHub</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'cicd','gitlab')"><span class="ob-card-icon">🦊</span><span class="ob-card-label">GitLab</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'cicd','bitbucket')"><span class="ob-card-icon">🪣</span><span class="ob-card-label">Bitbucket</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'cicd','none')"><span class="ob-card-icon">➕</span><span class="ob-card-label">None yet</span></div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:10px;margin-top:8px">Compliance requirements</div>
+      <div class="ob-grid">
+        <div class="ob-card" onclick="toggleCard(this,'compliance','hipaa')"><span class="ob-card-icon">🏥</span><span class="ob-card-label">HIPAA / HITECH</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'compliance','soc2')"><span class="ob-card-icon">📋</span><span class="ob-card-label">SOC 2</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'compliance','fedramp')"><span class="ob-card-icon">🏛️</span><span class="ob-card-label">FedRAMP</span></div>
+        <div class="ob-card" onclick="toggleCard(this,'compliance','iso27001')"><span class="ob-card-icon">🌍</span><span class="ob-card-label">ISO 27001</span></div>
+      </div>
+      <div class="ob-actions">
+        <button class="ob-skip" onclick="obNext(2)">&larr; Back</button>
+        <button class="ob-next" onclick="finishOnboarding()">Complete setup &rarr;</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </body>
 </html>

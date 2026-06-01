@@ -64,7 +64,23 @@
 </style>
 </head>
 <body>
-<nav id="nav"><div class="nav-in"><a href="index.html" class="nav-logo"><div class="nav-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div><span class="nav-wordmark">Sentinel<span>Analytics</span>.AI</span></a><ul class="nav-links"><li><a href="platform.html">Platform</a></li><li><a href="integrations.html">Integrations</a></li><li><a href="markets.html">Markets</a></li><li><a href="research.html">Research</a></li><li><a href="pricing.html" class="active">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-act"><a href="login.html" class="btn btn-white-sm">Sign in</a><a href="signup.html" class="btn btn-blue-sm">Start free <span class="arr">→</span></a></div></div></nav>
+<nav id="nav"><div class="nav-in"><a href="index.html" class="nav-logo"><div class="nav-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div><span class="nav-wordmark">Sentinel<span>Analytics</span>.AI</span></a><ul class="nav-links"><li><a href="platform.html">Platform</a></li><li><a href="integrations.html">Integrations</a></li><li><a href="markets.html">Markets</a></li><li><a href="research.html">Research</a></li><li><a href="pricing.html" class="active">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul><button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+    <div class="nav-act"><a href="login.html" class="btn btn-white-sm">Sign in</a><a href="signup.html" class="btn btn-blue-sm">Start free <span class="arr">→</span></a></div></div></nav>
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <ul class="mobile-nav-links">
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="integrations.html">Integrations</a></li>
+    <li><a href="markets.html">Markets</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="mobile-nav-act">
+    <a href="login.html" class="btn btn-white">Sign in</a>
+    <a href="signup.html" class="btn btn-blue">Start free trial <span class="arr">&#8594;</span></a>
+  </div>
+</div>
 
 <div class="page-hero"><div class="page-hero-in"><div class="page-hero-tag">Pricing</div><h1>Every module priced by<br>the value it delivers.</h1><p>Each Sentinel module is an independent product with its own pricing — based on the services it provides, the problem it solves, and the team it serves. Need two or more modules? We'll build a custom package for you.</p></div></div>
 
@@ -86,48 +102,59 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="tier-grid cols3">
-          <!-- Free Trial -->
+        <div class="tier-grid cols3" style="position:relative">
+          
           <div class="tier">
             <div class="tier-label">Free Trial</div>
             <div class="tier-price">$0</div>
-            <div class="tier-who">Try before you commit</div>
+            <div class="tier-who">Try before you commit &middot; 14 days</div>
             <div class="tier-div"></div>
-            <ul class="tier-feats">
-              <li>14 days full access</li>
+            <ul class="tier-feats"><li>14 days full access</li>
               <li>Up to 5,000 events / day</li>
               <li>5 user seats</li>
               <li>Live threat dashboard</li>
               <li>Community support</li>
-              <li class="off">HIPAA compliance mapping</li>
-              <li class="off">Autonomous PR engine</li>
-              <li class="off">Audit evidence pack</li>
-            </ul>
-            <a href="signup.html" class="tier-btn outline">Start free trial →</a>
+              <li class="off">HIPAA mapping</li>
+              <li class="off">Autonomous PRs</li></ul>
+            <a href="signup.html?module=ThreatSentinel" class="tier-btn outline">Start free trial &rarr;</a>
           </div>
-          <!-- Professional -->
           <div class="tier" style="position:relative">
             <div class="tier-pop">Most popular</div>
-            <div class="tier-label" style="margin-top:18px">Professional</div>
+            <div class="tier-label" style="margin-top:18px">Starter</div>
             <div class="tier-price"><sup>$</sup>299<sub>/mo</sub></div>
             <div class="tier-who">Security teams in regulated industries</div>
             <div class="tier-div"></div>
-            <ul class="tier-feats">
-              <li>Unlimited events / day</li>
+            <ul class="tier-feats"><li>Unlimited events / day</li>
               <li>10 user seats</li>
               <li>ML ensemble detection</li>
               <li>Real-time risk scoring</li>
               <li>HIPAA control mapping</li>
               <li>Email &amp; Slack alerts</li>
               <li>Standard compliance report</li>
-              <li class="off">Autonomous PR engine</li>
-            </ul>
-            <a href="https://buy.stripe.com/test_7sY9AU8X2ekR0Fyakhew800" target="_blank" class="tier-btn blue">Get started →</a>
-            <div class="tier-trial">✓ Start with a free trial first</div>
+              <li class="off">Autonomous PR engine</li></ul>
+            <a href="https://buy.stripe.com/test_7sY9AU8X2ekR0Fyakhew800" target='_blank' class="tier-btn blue">Get started &rarr;</a>
+            <div class="tier-trial">&#10003; Start with a free trial first</div>
           </div>
-          <!-- Enterprise -->
           <div class="tier">
-            <div class="tier-label">Enterprise</div>
+            <div class="tier-label">Professional</div>
+            <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
+            <div class="tier-who">Enterprise security &amp; compliance teams</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Starter</li>
+              <li>Autonomous PR engine</li>
+              <li>HIPAA &middot; HITRUST &middot; SOC 2 mapping</li>
+              <li>CISO audit evidence pack</li>
+              <li>25 user seats</li>
+              <li>Priority support &mdash; 4hr SLA</li>
+              <li>Database integration</li>
+              <li>On-premises option</li></ul>
+            <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
+        </div>
+      </div>
+          </div>
+          <div class="tier">
+            <div class="tier-label">Professional</div>
             <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
             <div class="tier-who">Enterprise &amp; government security teams</div>
             <div class="tier-div"></div>
@@ -161,13 +188,51 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="module-coming">
-          <div class="mc-left">
-            <h3>Launching soon — join the waitlist</h3>
-            <p>ML-based NIDS for web application and network traffic. Feature extraction and classification for anomalous activity across fintech, hospital networks, and enterprise perimeters. Purpose-built for teams that need more than perimeter firewalls.</p>
-            <div class="mc-price">Indicative pricing from $349/mo · 14-day free trial on launch</div>
+        <div class="tier-grid cols3" style="position:relative">
+          <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
+          <div class="tier">
+            <div class="tier-label">Free Trial</div>
+            <div class="tier-price">$0</div>
+            <div class="tier-who">Try before you commit &middot; 14 days</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>14 days full access</li>
+              <li>Up to 1,000 requests / day</li>
+              <li>Basic intrusion detection</li>
+              <li>5 user seats</li>
+              <li class="off">Web app analysis</li>
+              <li class="off">Compliance mapping</li></ul>
+            <a href="signup.html?module=NetGuard" class="tier-btn outline">Join waitlist &rarr;</a>
           </div>
-          <a href="contact.html" class="btn btn-outline">Join waitlist →</a>
+          <div class="tier" style="position:relative">
+            <div class="tier-pop">Most popular</div>
+            <div class="tier-label" style="margin-top:18px">Starter</div>
+            <div class="tier-price"><sup>$</sup>299<sub>/mo</sub></div>
+            <div class="tier-who">Security engineers in fintech &amp; healthcare</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Unlimited traffic analysis</li>
+              <li>ML-based NIDS</li>
+              <li>Web application scanning</li>
+              <li>OWASP Top 10 coverage</li>
+              <li>10 user seats</li>
+              <li>Email alerts</li>
+              <li class="off">Custom rule engine</li></ul>
+            <a href="contact.html"  class="tier-btn blue">Join waitlist &rarr;</a>
+            <div class="tier-trial">&#10003; Start with a free trial first</div>
+          </div>
+          <div class="tier">
+            <div class="tier-label">Professional</div>
+            <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
+            <div class="tier-who">Enterprise networks &amp; regulated perimeters</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Starter</li>
+              <li>Custom rule engine</li>
+              <li>PCAP analysis</li>
+              <li>SIEM integration</li>
+              <li>SOC 2 mapping</li>
+              <li>25 user seats</li>
+              <li>API access</li></ul>
+            <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -186,13 +251,50 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="module-coming">
-          <div class="mc-left">
-            <h3>Launching soon — join the waitlist</h3>
-            <p>Anomaly detection in continuous HD video streams using AI-driven time-series analysis. Secures hospital entrances, trading floors, and government facilities without manual review. Priced per deployment site based on camera count and retention requirements.</p>
-            <div class="mc-price">Indicative pricing from $449/mo per site · 14-day free trial on launch</div>
+        <div class="tier-grid cols3" style="position:relative">
+          <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
+          <div class="tier">
+            <div class="tier-label">Free Trial</div>
+            <div class="tier-price">$0</div>
+            <div class="tier-who">Try before you commit &middot; 14 days</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>14 days full access</li>
+              <li>Up to 2 camera feeds</li>
+              <li>Basic anomaly detection</li>
+              <li>5 user seats</li>
+              <li class="off">Multi-site support</li>
+              <li class="off">Compliance reporting</li></ul>
+            <a href="signup.html?module=VisionSentinel" class="tier-btn outline">Join waitlist &rarr;</a>
           </div>
-          <a href="contact.html" class="btn btn-outline">Join waitlist →</a>
+          <div class="tier" style="position:relative">
+            <div class="tier-pop">Most popular</div>
+            <div class="tier-label" style="margin-top:18px">Starter</div>
+            <div class="tier-price"><sup>$</sup>299<sub>/mo</sub></div>
+            <div class="tier-who">Facility managers &amp; physical security teams</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Up to 10 camera feeds</li>
+              <li>Real-time HD stream analysis</li>
+              <li>AI anomaly detection</li>
+              <li>Incident alerting</li>
+              <li>7-day retention</li>
+              <li>10 user seats</li>
+              <li class="off">Multi-site management</li></ul>
+            <a href="contact.html"  class="tier-btn blue">Join waitlist &rarr;</a>
+            <div class="tier-trial">&#10003; Start with a free trial first</div>
+          </div>
+          <div class="tier">
+            <div class="tier-label">Professional</div>
+            <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
+            <div class="tier-who">Hospitals, data centres &amp; government facilities</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Starter</li>
+              <li>Unlimited cameras</li>
+              <li>Multi-site management</li>
+              <li>30-day retention</li>
+              <li>HIPAA / FedRAMP reporting</li>
+              <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -211,13 +313,48 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="module-coming">
-          <div class="mc-left">
-            <h3>Launching soon — join the waitlist</h3>
-            <p>Pattern detection and correction in noisy time-series and digital communications data. Validated for financial trading signals, medical device streams, and industrial IoT monitoring. Priced per number of active data streams monitored.</p>
-            <div class="mc-price">Indicative pricing from $299/mo · 14-day free trial on launch</div>
+        <div class="tier-grid cols3" style="position:relative">
+          <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
+          <div class="tier">
+            <div class="tier-label">Free Trial</div>
+            <div class="tier-price">$0</div>
+            <div class="tier-who">Try before you commit &middot; 14 days</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>14 days full access</li>
+              <li>Up to 3 data streams</li>
+              <li>Basic pattern detection</li>
+              <li>5 user seats</li>
+              <li class="off">Medical device streams</li></ul>
+            <a href="signup.html?module=SignalSentinel" class="tier-btn outline">Join waitlist &rarr;</a>
           </div>
-          <a href="contact.html" class="btn btn-outline">Join waitlist →</a>
+          <div class="tier" style="position:relative">
+            <div class="tier-pop">Most popular</div>
+            <div class="tier-label" style="margin-top:18px">Starter</div>
+            <div class="tier-price"><sup>$</sup>299<sub>/mo</sub></div>
+            <div class="tier-who">Trading desks, IoT &amp; medical device teams</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Up to 20 data streams</li>
+              <li>Real-time signal analysis</li>
+              <li>Pattern detection engine</li>
+              <li>Anomaly alerting</li>
+              <li>10 user seats</li>
+              <li class="off">Custom model tuning</li></ul>
+            <a href="contact.html"  class="tier-btn blue">Join waitlist &rarr;</a>
+            <div class="tier-trial">&#10003; Start with a free trial first</div>
+          </div>
+          <div class="tier">
+            <div class="tier-label">Professional</div>
+            <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
+            <div class="tier-who">Enterprise &amp; high-frequency trading environments</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Starter</li>
+              <li>Unlimited streams</li>
+              <li>Custom model tuning</li>
+              <li>Medical device support</li>
+              <li>Low-latency processing</li>
+              <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -236,13 +373,49 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="module-coming">
-          <div class="mc-left">
-            <h3>Launching soon — join the waitlist</h3>
-            <p>ML-based indoor device location from Wi-Fi signal data using HMM-DMD temporal modelling. Hospital equipment tracking, secure campus localization, and warehouse management. Priced per facility and number of tracked assets.</p>
-            <div class="mc-price">Indicative pricing from $349/mo per facility · 14-day free trial on launch</div>
+        <div class="tier-grid cols3" style="position:relative">
+          <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
+          <div class="tier">
+            <div class="tier-label">Free Trial</div>
+            <div class="tier-price">$0</div>
+            <div class="tier-who">Try before you commit &middot; 14 days</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>14 days full access</li>
+              <li>Up to 50 tracked assets</li>
+              <li>1 facility</li>
+              <li>5 user seats</li>
+              <li class="off">Multi-floor mapping</li></ul>
+            <a href="signup.html?module=LocateSentinel" class="tier-btn outline">Join waitlist &rarr;</a>
           </div>
-          <a href="contact.html" class="btn btn-outline">Join waitlist →</a>
+          <div class="tier" style="position:relative">
+            <div class="tier-pop">Most popular</div>
+            <div class="tier-label" style="margin-top:18px">Starter</div>
+            <div class="tier-price"><sup>$</sup>299<sub>/mo</sub></div>
+            <div class="tier-who">Hospital asset managers &amp; warehouse teams</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Up to 500 tracked assets</li>
+              <li>1 multi-floor facility</li>
+              <li>Real-time Wi-Fi localization</li>
+              <li>Asset history &amp; reports</li>
+              <li>Zone alerts</li>
+              <li>10 user seats</li>
+              <li class="off">Multi-facility</li></ul>
+            <a href="contact.html"  class="tier-btn blue">Join waitlist &rarr;</a>
+            <div class="tier-trial">&#10003; Start with a free trial first</div>
+          </div>
+          <div class="tier">
+            <div class="tier-label">Professional</div>
+            <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
+            <div class="tier-who">Multi-site hospitals, campuses &amp; warehouses</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Starter</li>
+              <li>Unlimited assets</li>
+              <li>Multi-facility support</li>
+              <li>EHR / WMS integration</li>
+              <li>Compliance tracking</li>
+              <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -261,13 +434,49 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="module-coming">
-          <div class="mc-left">
-            <h3>Launching soon — join the waitlist</h3>
-            <p>Priority-based conflict resolution for resource-constrained scheduling. Hospital staff scheduling, government ground station allocation, and enterprise IT task orchestration. Priced per number of managed resources and scheduling frequency.</p>
-            <div class="mc-price">Indicative pricing from $299/mo · 14-day free trial on launch</div>
+        <div class="tier-grid cols3" style="position:relative">
+          <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">Coming soon</div><a href="contact.html" class="btn btn-outline">Join waitlist &rarr;</a></div></div>
+          <div class="tier">
+            <div class="tier-label">Free Trial</div>
+            <div class="tier-price">$0</div>
+            <div class="tier-who">Try before you commit &middot; 14 days</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>14 days full access</li>
+              <li>Up to 20 resources</li>
+              <li>Basic scheduling</li>
+              <li>5 user seats</li>
+              <li class="off">Conflict resolution</li></ul>
+            <a href="signup.html?module=OptimaSentinel" class="tier-btn outline">Join waitlist &rarr;</a>
           </div>
-          <a href="contact.html" class="btn btn-outline">Join waitlist →</a>
+          <div class="tier" style="position:relative">
+            <div class="tier-pop">Most popular</div>
+            <div class="tier-label" style="margin-top:18px">Starter</div>
+            <div class="tier-price"><sup>$</sup>299<sub>/mo</sub></div>
+            <div class="tier-who">Hospital admins, operations &amp; IT teams</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Up to 200 resources</li>
+              <li>Priority-based scheduling</li>
+              <li>Conflict resolution</li>
+              <li>REST API access</li>
+              <li>10 user seats</li>
+              <li>Export &amp; reporting</li>
+              <li class="off">AI optimisation</li></ul>
+            <a href="contact.html"  class="tier-btn blue">Join waitlist &rarr;</a>
+            <div class="tier-trial">&#10003; Start with a free trial first</div>
+          </div>
+          <div class="tier">
+            <div class="tier-label">Professional</div>
+            <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
+            <div class="tier-who">Government operations &amp; large enterprise IT</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Starter</li>
+              <li>Unlimited resources</li>
+              <li>AI-powered optimisation</li>
+              <li>Multi-department</li>
+              <li>Ground station allocation</li>
+              <li>25 user seats</li></ul>
+            <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -286,11 +495,35 @@
         </div>
       </div>
       <div class="module-body">
-        <div class="module-coming">
-          <div class="mc-left">
-            <h3>Government &amp; commercial deployments — contact for pricing</h3>
-            <p>End-to-end PAM pipeline achieving ~95% detection accuracy. Published in Ecological Informatics and Entropy. SBIR Phase I/II eligible through DoD, NOAA, and DHS. Commercial deployments priced per monitoring site and data volume. Government contracts structured through SAM.gov procurement.</p>
-            <div class="mc-price">Commercial from $499/mo per site · Government: SBIR/STTR contract pricing · 14-day trial on launch</div>
+        <div class="tier-grid cols3" style="position:relative">
+          <div style="position:absolute;inset:0;background:rgba(248,250,252,.85);z-index:2;display:flex;align-items:center;justify-content:center;border-radius:0 0 var(--r16) var(--r16)"><div style="text-align:center;padding:20px"><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:8px">SBIR eligible · Contact for pricing</div><a href="mailto:contact@sentinelanalyticsai.com?subject=PAMSentinel Briefing" class="btn btn-outline">Request briefing &rarr;</a></div></div>
+          <div class="tier">
+            <div class="tier-label">Free Trial</div>
+            <div class="tier-price">$0</div>
+            <div class="tier-who">Try before you commit &middot; 14 days</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>14 days full access</li><li>1 monitoring site</li><li>Basic acoustic detection</li><li>Community support</li><li class="off">SBIR reporting</li></ul>
+            <a href="mailto:contact@sentinelanalyticsai.com?subject=PAMSentinel Trial" class="tier-btn outline">Request trial &rarr;</a>
+          </div>
+          <div class="tier" style="position:relative">
+            <div class="tier-pop">Most popular</div>
+            <div class="tier-label" style="margin-top:18px">Starter</div>
+            <div class="tier-price"><sup>$</sup>299<sub>/mo</sub></div>
+            <div class="tier-who">Commercial offshore &amp; environmental operators</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>1 monitoring site</li><li>~95% detection accuracy</li><li>Wavelet feature extraction</li><li>Gaussian HMM detection</li><li>Standard compliance reports</li><li>10 user seats</li></ul>
+            <a href="contact.html" class="tier-btn blue">Request access &rarr;</a>
+          </div>
+          <div class="tier">
+            <div class="tier-label">Professional</div>
+            <div class="tier-price"><sup>$</sup>599<sub>/mo</sub></div>
+            <div class="tier-who">NOAA, EPA, DoD &amp; offshore energy companies</div>
+            <div class="tier-div"></div>
+            <ul class="tier-feats"><li>Everything in Starter</li><li>Unlimited monitoring sites</li><li>SBIR-compliant reporting</li><li>FedRAMP / DoD documentation</li><li>Multi-species detection</li><li>Government contract support</li></ul>
+            <a href="contact.html" class="tier-btn outline">Contact sales &rarr;</a>
+          </div>
+        </div>
+      </div>
           </div>
           <a href="mailto:contact@sentinelanalyticsai.com?subject=PAMSentinel Briefing Request" class="btn btn-outline">Request briefing →</a>
         </div>

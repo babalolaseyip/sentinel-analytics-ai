@@ -158,7 +158,8 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   const {data:{session}}=await sb.auth.getSession();
   if(session){
     const pending = localStorage.getItem('sentinel_pending_upgrade');
-    window.location.href = pending ? 'dashboard.html' + pending : 'dashboard.html';
+    const dashUrl = 'dashboard.html';
+    window.location.href = pending ? dashUrl + pending : dashUrl;
   }
 })();
 
@@ -212,15 +213,44 @@ async function handleLogin(e){
 
 // ── GOOGLE OAUTH ──
 async function handleGoogleLogin(){
+  // Build redirect URL dynamically so it works on any domain
+  const base = window.location.href.replace(/login\.html.*/, 'dashboard.html');
   const pending = localStorage.getItem('sentinel_pending_upgrade');
-  const redirectTo = pending
-    ? window.location.origin + '/sentinel-analytics-ai/dashboard.html' + pending
-    : window.location.origin + '/sentinel-analytics-ai/dashboard.html';
+  const redirectTo = pending ? base + pending : base;
   await sb.auth.signInWithOAuth({
     provider:'google',
-    options:{redirectTo}
+    options:{
+      redirectTo,
+      queryParams: { access_type: 'offline', prompt: 'consent' }
+    }
   });
 }
+
+function toggleMobileNav(){
+  var nav=document.getElementById("mobile-nav");
+  var btn=document.getElementById("hamburger");
+  if(!nav||!btn)return;
+  nav.classList.toggle("open");
+  btn.classList.toggle("open");
+  document.body.style.overflow=nav.classList.contains("open")?"hidden":"";
+}
+document.addEventListener("click",function(e){
+  var nav=document.getElementById("mobile-nav");
+  var btn=document.getElementById("hamburger");
+  if(nav&&btn&&nav.classList.contains("open")&&!nav.contains(e.target)&&!btn.contains(e.target)){
+    nav.classList.remove("open");btn.classList.remove("open");
+    document.body.style.overflow="";
+  }
+});
+window.addEventListener("resize",function(){
+  if(window.innerWidth>768){
+    var nav=document.getElementById("mobile-nav");
+    var btn=document.getElementById("hamburger");
+    if(nav)nav.classList.remove("open");
+    if(btn)btn.classList.remove("open");
+    document.body.style.overflow="";
+  }
+});
 </script>
 </body>
 </html>
