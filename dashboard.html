@@ -221,7 +221,7 @@ body{font-family:var(--sans);background:var(--surf);color:var(--ink);display:fle
 <!-- SIDEBAR -->
 <div class="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div>
+    <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg><button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()"><span></span><span></span><span></span></button></div>
     <div class="logo-text">ThreatSentinel<span>Analytics</span>.AI<small>Dashboard</small></div>
   </div>
 
@@ -867,5 +867,20 @@ document.addEventListener('click',function(e){
   }
 });
 </script>
+
+<div id="mobile-nav">
+  <ul class="mobile-nav-links">
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="integrations.html">Integrations</a></li>
+    <li><a href="markets.html">Markets</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="mobile-nav-act">
+    <a href="login.html" class="btn-white">Sign in</a>
+    <a href="signup.html" class="btn-blue">Start free trial &#8594;</a>
+  </div>
+</div>
 </body>
 </html>

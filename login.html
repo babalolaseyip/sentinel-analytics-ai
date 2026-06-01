@@ -113,11 +113,27 @@ a:hover{text-decoration:underline}
     <div class="logo-mark"><svg viewBox="0 0 18 18" fill="none"><path d="M9 2L14.5 5.5V12.5L9 16L3.5 12.5V5.5L9 2Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.5" fill="#fff"/></svg></div>
     <span class="logo-text">Sentinel<span>Analytics</span>.AI</span>
   </a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
   <div class="topbar-right">Don't have an account? <a href="signup.html">Start free trial</a></div>
 </div>
 
 <div class="main">
-  <div class="auth-card">
+  
+<div id="mobile-nav">
+  <ul class="mobile-nav-links">
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="integrations.html">Integrations</a></li>
+    <li><a href="markets.html">Markets</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="mobile-nav-act">
+    <a href="login.html" class="btn-white">Sign in</a>
+    <a href="signup.html" class="btn-blue">Start free trial &#8594;</a>
+  </div>
+</div>
+<div class="auth-card">
     <div class="auth-badge">Secure sign-in</div>
     <h1 class="auth-title">Welcome back.</h1>
     <p class="auth-sub">Sign in to your Sentinel Analytics AI dashboard.</p>
